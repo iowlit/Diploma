@@ -28,7 +28,9 @@ namespace MongoMvc
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization(); 
 
             services.Configure<Settings>(options =>
             {

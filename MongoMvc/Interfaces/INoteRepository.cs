@@ -7,9 +7,9 @@ namespace MongoMvc.Interfaces
 {
     public interface INoteRepository
     {
-        Task<IEnumerable<Note>> GetAllNotes();
-        Task<Note> GetNote(string id);
-        Task AddNote(Note item);
+        Task<IEnumerable<Discipline>> GetAllNotes();
+        Task<Discipline> GetNote(string id);
+        Task AddNote(Discipline item);
         Task<DeleteResult> RemoveNote(string id);
 
         Task<UpdateResult> UpdateNote(string id, string body);

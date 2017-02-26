@@ -33,10 +33,9 @@ namespace MongoMvc.Controllers
         public IActionResult Init()
         {
             _noteRepository.RemoveAllNotes();
-            _noteRepository.AddNote(new Note() {  Body = "Test note 1", CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now, UserId = 1 });
-            _noteRepository.AddNote(new Note() {  Body = "Test note 2", CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now, UserId = 1 });
-            _noteRepository.AddNote(new Note() {  Body = "Test note 3", CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now, UserId = 2 });
-            _noteRepository.AddNote(new Note() {  Body = "Test note 4", CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now, UserId = 2 });
+            _noteRepository.AddNote(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = new List<Lector> { new Lector() { Name = "Гладун Володимир Романович", Descr = "доцент, кандидат фіз-мат наук" } }, YearPart = YearPart.Autumn, Course = 1, ControlType=ControlType.Exam ,CreatedOn = DateTime.Now});
+            _noteRepository.AddNote(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = new List<Lector> { new Lector() { Name = "Гладун Володимир Романович", Descr = "доцент, кандидат фіз-мат наук" }, new Lector() { Name = "Гнатів Богдан Васильович", Descr = "доцент, кандидат фіз-мат наук" } }, YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, CreatedOn = DateTime.Now });
+
 
             ViewData["Message"] = string.Format($"Filled in 4 records");
             return View();

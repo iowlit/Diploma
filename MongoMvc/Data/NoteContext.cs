@@ -15,11 +15,11 @@ namespace MongoMvc.Data
                 _database = client.GetDatabase(settings.Value.Database);
         }
 
-        public IMongoCollection<Note> Notes
+        public IMongoCollection<Discipline> Notes
         {
             get
             {
-                return _database.GetCollection<Note>("Note");
+                return _database.GetCollection<Discipline>("Note");
             }
         }
     }

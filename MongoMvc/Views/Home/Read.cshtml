@@ -2,12 +2,50 @@
     ViewData["Title"] = "Read all records";
 }
 
-@model IEnumerable<MongoMvc.Model.Note>
+@model IEnumerable<MongoMvc.Model.Discipline>
+
 
 <h2>@ViewData["Title"].</h2>
     <ul>
         @foreach (var item in Model)
         {
-            <li>@item.Id @item.Body</li>  
+            <li>@item.Name</li>
+            <li>Тип модуля: @GetModuleType(item.ModuleType)</li>
+            <li>Обсяг модуля: @item.ModuleDescr</li>
+            <li>Лектори: <ul>@foreach (var lc in item.Lectors) {<li>@lc.Name &nbsp @lc.Descr</li>}</ul></li>
+            <li>Семестровий контроль: @GetControlType(item.ControlType)</li>
+            <sub>@item.CreatedOn.ToString("d")</sub>
+            <hr>
         }
     </ul>
+
+
+@*helper not supported by ASP.NET Core*@
+@functions {
+    public string GetControlType(MongoMvc.Model.ControlType ct)
+    {
+        switch (ct)
+        {
+            case MongoMvc.Model.ControlType.Exam:
+                return "Екзамен";
+                break;
+            case MongoMvc.Model.ControlType.Zalik:
+                return "Залік";
+                break;
+            default: return "Невідомо";
+        }
+    }
+    public string GetModuleType(MongoMvc.Model.ModuleType mt)
+    {
+        switch (mt)
+        {
+            case MongoMvc.Model.ModuleType.Required:
+                return "Обов'язковий";
+                break;
+            case MongoMvc.Model.ModuleType.NotRequired:
+                return "Необов'язковий";
+                break;
+            default: return "Невідомо";
+        }
+    }
+}

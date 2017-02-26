@@ -19,7 +19,7 @@ namespace MongoMvc.Data
             _context = new NoteContext(settings);
         }
 
-        public async Task<IEnumerable<Note>> GetAllNotes()
+        public async Task<IEnumerable<Discipline>> GetAllNotes()
         {
             try
             {
@@ -32,9 +32,9 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<Note> GetNote(string id)
+        public async Task<Discipline> GetNote(string id)
         {
-            var filter = Builders<Note>.Filter.Eq("Id", id);
+            var filter = Builders<Discipline>.Filter.Eq("Id", id);
 
             try
             {
@@ -49,7 +49,7 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task AddNote(Note item)
+        public async Task AddNote(Discipline item)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace MongoMvc.Data
             try
             {
                 return await _context.Notes.DeleteOneAsync(
-                     Builders<Note>.Filter.Eq("Id", id));
+                     Builders<Discipline>.Filter.Eq("Id", id));
             }
             catch (Exception ex)
             {
@@ -76,11 +76,11 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<UpdateResult> UpdateNote(string id, string body)
+        public async Task<UpdateResult> UpdateNote(string id, string Name)
         {
-            var filter = Builders<Note>.Filter.Eq(s => s.Id, id);
-            var update = Builders<Note>.Update
-                            .Set(s => s.Body, body)
+            var filter = Builders<Discipline>.Filter.Eq(s => s.Id, id);
+            var update = Builders<Discipline>.Update
+                            .Set(s => s.Name, Name)
                             .CurrentDate(s => s.UpdatedOn);
 
             try
@@ -94,7 +94,7 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<ReplaceOneResult> UpdateNote(string id, Note item)
+        public async Task<ReplaceOneResult> UpdateNote(string id, Discipline item)
         {
             try
             {
@@ -113,8 +113,8 @@ namespace MongoMvc.Data
         // Demo function - full document update
         public async Task<ReplaceOneResult> UpdateNoteDocument(string id, string body)
         {
-            var item = await GetNote(id) ?? new Note();
-            item.Body = body;
+            var item = await GetNote(id) ?? new Discipline();
+            item.Name = body;
             item.UpdatedOn = DateTime.Now;
 
             return await UpdateNote(id, item);
