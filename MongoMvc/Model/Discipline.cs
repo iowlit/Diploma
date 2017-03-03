@@ -33,7 +33,7 @@ namespace MongoMvc.Model
         public YearPart YearPart { get; set; } = YearPart.Autumn;
         public ModuleType ModuleType { get; set; } = ModuleType.Required;
         public string ModuleDescr { get; set; }
-        public List<Lector> Lectors { get; set; }
+        public List<Lecturer> Lectors { get; set; }
         public ControlType ControlType { get; set; } = ControlType.Exam;
         public DateTime CreatedOn { get; set; } = DateTime.Now.Date;
         public DateTime UpdatedOn { get; set; } = DateTime.Now.Date;       

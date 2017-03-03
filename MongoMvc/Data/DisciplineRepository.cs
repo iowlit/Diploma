@@ -10,20 +10,31 @@ using MongoDB.Bson;
 
 namespace MongoMvc.Data
 {
-    public class NoteRepository : INoteRepository
+    public class DisciplineRepository : IRepository<Discipline>
     {
-        private readonly NoteContext _context = null;
+        private readonly Context _context = null;
 
-        public NoteRepository(IOptions<Settings> settings)
+        public DisciplineRepository(IOptions<Settings> settings)
         {
-            _context = new NoteContext(settings);
+            _context = new Context(settings);
         }
-
-        public async Task<IEnumerable<Discipline>> GetAllNotes()
+        public IEnumerable<Discipline> GetAllNotes()
         {
             try
             {
-                return await _context.Notes.Find(_ => true).ToListAsync();
+                return _context.Disciplines.Find(_ => true).ToList();
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<Discipline>> GetAllNotesAsync()
+        {
+            try
+            {
+                return await _context.Disciplines.Find(_ => true).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -38,7 +49,7 @@ namespace MongoMvc.Data
 
             try
             {
-                return await _context.Notes
+                return await _context.Disciplines
                                 .Find(filter)
                                 .FirstOrDefaultAsync();
             }
@@ -53,7 +64,7 @@ namespace MongoMvc.Data
         {
             try
             {
-                await _context.Notes.InsertOneAsync(item);
+                await _context.Disciplines.InsertOneAsync(item);
             }
             catch (Exception ex)
             {
@@ -66,7 +77,7 @@ namespace MongoMvc.Data
         {
             try
             {
-                return await _context.Notes.DeleteOneAsync(
+                return await _context.Disciplines.DeleteOneAsync(
                      Builders<Discipline>.Filter.Eq("Id", id));
             }
             catch (Exception ex)
@@ -85,7 +96,7 @@ namespace MongoMvc.Data
 
             try
             {
-                return await _context.Notes.UpdateOneAsync(filter, update);
+                return await _context.Disciplines.UpdateOneAsync(filter, update);
             }
             catch (Exception ex)
             {
@@ -98,7 +109,7 @@ namespace MongoMvc.Data
         {
             try
             {
-                return await _context.Notes
+                return await _context.Disciplines
                             .ReplaceOneAsync(n => n.Id.Equals(id)
                                             , item
                                             , new UpdateOptions { IsUpsert = true });
@@ -124,7 +135,7 @@ namespace MongoMvc.Data
         {
             try
             {
-                return await _context.Notes.DeleteManyAsync(new BsonDocument());
+                return await _context.Disciplines.DeleteManyAsync(new BsonDocument());
             }
             catch (Exception ex)
             {

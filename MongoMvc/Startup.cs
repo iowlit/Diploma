@@ -38,7 +38,8 @@ namespace MongoMvc
                 options.Database = Configuration.GetSection("MongoConnection:Database").Value;
             });
 
-            services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<IRepository<Discipline>, DisciplineRepository>();
+            services.AddTransient<IRepository<Lecturer>, LecturerRepository>();
 
         }
 

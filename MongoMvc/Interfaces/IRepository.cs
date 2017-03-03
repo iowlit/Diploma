@@ -5,11 +5,12 @@ using MongoDB.Driver;
 
 namespace MongoMvc.Interfaces
 {
-    public interface INoteRepository
+    public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<Discipline>> GetAllNotes();
-        Task<Discipline> GetNote(string id);
-        Task AddNote(Discipline item);
+        Task<IEnumerable<T>> GetAllNotesAsync();
+        IEnumerable<T> GetAllNotes();
+        Task<T> GetNote(string id);
+        Task AddNote(T item);
         Task<DeleteResult> RemoveNote(string id);
 
         Task<UpdateResult> UpdateNote(string id, string body);
