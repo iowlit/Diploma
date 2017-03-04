@@ -1,0 +1,72 @@
+﻿@model MongoMvc.Model.Discipline
+@using MongoMvc.Model
+
+@{ ViewBag.Title = "Створити дисципліну";}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-controller="Home" asp-action="Create" method="post" class="form-horizontal" role="form">
+    <div class="form-horizontal">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Name" class="form-control"></textarea>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Course" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select class="form-control">
+                    <option selected="selected" value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">Магістри</option>                    
+                </select>
+                <span asp-validation-for="Course" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="YearPart" class="col-md-2 control-label"></label>
+            <div class="col-md-10">    
+                <select asp-for="YearPart" asp-items="Html.GetEnumSelectList<YearPart>()" class="form-control"></select>
+                <span asp-validation-for="YearPart" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ModuleType" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ModuleType" asp-items="Html.GetEnumSelectList<ModuleType>()" class="form-control"></select>
+                <span asp-validation-for="ModuleType" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ModuleDescr" class="col-md-2 control-label"></label>
+            <div class="col-md-10">                
+                <textarea asp-for="ModuleDescr" class="form-control"></textarea>
+                <span asp-validation-for="ModuleDescr" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Lectors" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @Html.ListBox("Id", (MultiSelectList)ViewBag.Lectures, new { @class="form-control" })
+                <span asp-validation-for="Lectors" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ControlType" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ControlType" asp-items="Html.GetEnumSelectList<ControlType>()" class="form-control"></select>
+                <span asp-validation-for="ControlType" class="text-danger"></span>
+            </div>
+        </div>        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Створити" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>

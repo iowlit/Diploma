@@ -9,8 +9,9 @@ namespace MongoMvc.Interfaces
     {
         Task<IEnumerable<T>> GetAllNotesAsync();
         IEnumerable<T> GetAllNotes();
-        Task<T> GetNote(string id);
-        Task AddNote(T item);
+        T GetNote(string id);
+        Task AddNoteAsync(T item);
+        void AddNote(T item);
         Task<DeleteResult> RemoveNote(string id);
 
         Task<UpdateResult> UpdateNote(string id, string body);

@@ -29,7 +29,7 @@ namespace MongoMvc.Data
                 // log or manage the exception
                 throw ex;
             }
-        }
+        }       
         public async Task<IEnumerable<Discipline>> GetAllNotesAsync()
         {
             try
@@ -43,15 +43,28 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<Discipline> GetNote(string id)
+        public Discipline GetNote(string id)
         {
             var filter = Builders<Discipline>.Filter.Eq("Id", id);
 
             try
             {
-                return await _context.Disciplines
+                return  _context.Disciplines
                                 .Find(filter)
-                                .FirstOrDefaultAsync();
+                                .FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                throw ex;                
+            }
+        }
+
+        public async Task AddNoteAsync(Discipline item)
+        {
+            try
+            {
+                await _context.Disciplines.InsertOneAsync(item);
             }
             catch (Exception ex)
             {
@@ -60,11 +73,11 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task AddNote(Discipline item)
+        public void AddNote(Discipline item)
         {
             try
             {
-                await _context.Disciplines.InsertOneAsync(item);
+                _context.Disciplines.InsertOne(item);
             }
             catch (Exception ex)
             {
@@ -124,7 +137,7 @@ namespace MongoMvc.Data
         // Demo function - full document update
         public async Task<ReplaceOneResult> UpdateNoteDocument(string id, string body)
         {
-            var item = await GetNote(id) ?? new Discipline();
+            var item = GetNote(id) ?? new Discipline();
             item.Name = body;
             item.UpdatedOn = DateTime.Now;
 

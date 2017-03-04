@@ -44,15 +44,15 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<Lecturer> GetNote(string id)
+        public Lecturer GetNote(string id)
         {
             var filter = Builders<Lecturer>.Filter.Eq("Id", id);
 
             try
             {
-                return await _context.Lecturers
+                return  _context.Lecturers
                                 .Find(filter)
-                                .FirstOrDefaultAsync();
+                                .FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -61,11 +61,24 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task AddNote(Lecturer item)
+        public async Task AddNoteAsync(Lecturer item)
         {
             try
             {
                 await _context.Lecturers.InsertOneAsync(item);
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                throw ex;
+            }
+        }
+
+        public void AddNote(Lecturer item)
+        {
+            try
+            {
+                _context.Lecturers.InsertOne(item);
             }
             catch (Exception ex)
             {
@@ -125,7 +138,7 @@ namespace MongoMvc.Data
         // Demo function - full document update
         public async Task<ReplaceOneResult> UpdateNoteDocument(string id, string body)
         {
-            var item = await GetNote(id) ?? new Lecturer();
+            var item = GetNote(id) ?? new Lecturer();
             item.Name = body;
             //item.UpdatedOn = DateTime.Now;
 

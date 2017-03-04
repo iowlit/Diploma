@@ -14,7 +14,7 @@
             <li>Обсяг модуля: @item.ModuleDescr</li>
             <li>Лектори: <ul>@foreach (var lc in item.Lectors) {<li>@lc.Name &nbsp @lc.Descr</li>}</ul></li>
             <li>Семестровий контроль: @GetControlType(item.ControlType)</li>
-            <sub>@item.CreatedOn.ToString("d")</sub>
+            <sub>@item.UpdatedOn.ToString("d")</sub>
             <hr>
         }
     </ul>

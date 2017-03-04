@@ -5,6 +5,7 @@ using MongoMvc.Interfaces;
 using MongoMvc.Model;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MongoMvc.Controllers
 {
@@ -38,12 +39,31 @@ namespace MongoMvc.Controllers
             _LecturerRepository.RemoveAllNotes();
             _LecturerRepository.AddNote(new Lecturer() { Name = "Гнатів Богдан Васильович", Descr = "доцент, кандидат фіз-мат наук" });
             _LecturerRepository.AddNote(new Lecturer() { Name = "Гладун Володимир Романович", Descr = "доцент, кандидат фіз-мат наук" });
-            _DisciplineRepository.AddNote(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = _LecturerRepository.GetAllNotes().ToList(), YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, CreatedOn = DateTime.Now });
-            _DisciplineRepository.AddNote(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = _LecturerRepository.GetAllNotes().ToList(), YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, CreatedOn = DateTime.Now });
+            _DisciplineRepository.AddNote(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = _LecturerRepository.GetAllNotes().ToList(), YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, UpdatedOn = DateTime.Now });
+            _DisciplineRepository.AddNote(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = _LecturerRepository.GetAllNotes().ToList(), YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, UpdatedOn = DateTime.Now });
 
 
             ViewData["Message"] = string.Format($"Filled in 4 records");
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.Lectures = new MultiSelectList(_LecturerRepository.GetAllNotes(), "Id", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Discipline disc, string[] Id)
+        {             
+            foreach(var tmp in Id)
+            {
+                disc.Lectors.Add(_LecturerRepository.GetNote(tmp));                
+            }
+            
+            _DisciplineRepository.AddNoteAsync(disc);
+            return RedirectToAction("Read");
         }
 
         public IActionResult Error()
