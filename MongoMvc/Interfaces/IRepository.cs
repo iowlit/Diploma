@@ -7,19 +7,19 @@ namespace MongoMvc.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAllNotesAsync();
-        IEnumerable<T> GetAllNotes();
-        T GetNote(string id);
-        Task AddNoteAsync(T item);
-        void AddNote(T item);
-        Task<DeleteResult> RemoveNote(string id);
-
-        Task<UpdateResult> UpdateNote(string id, string body);
+        Task<IEnumerable<T>> GetAllAsync();
+        IEnumerable<T> GetAll();
+        T GetById(string id);
+        Task<T> GetByIdAsync(string id);
+        Task AddAsync(T item);
+        void Add(T item);
+        Task<DeleteResult> RemoveById(string id);
+        Task<UpdateResult> UpdateAsync(string id, T item);
 
         // demo interface - full document update
-        Task<ReplaceOneResult> UpdateNoteDocument(string id, string body);
+        //Task<ReplaceOneResult> UpdateNoteDocument(string id, string body);
 
-        // should be used with high cautious, only in relation with demo setup
-        Task<DeleteResult> RemoveAllNotes();
+        //// should be used with high cautious, only in relation with demo setup
+        //Task<DeleteResult> RemoveAllNotes();
     }
 }

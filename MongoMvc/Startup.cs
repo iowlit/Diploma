@@ -39,7 +39,7 @@ namespace MongoMvc
             });
 
             services.AddTransient<IRepository<Discipline>, DisciplineRepository>();
-            services.AddTransient<IRepository<Lecturer>, LecturerRepository>();
+            services.AddTransient<ILecturerRepository, LecturerRepository>();
 
         }
 

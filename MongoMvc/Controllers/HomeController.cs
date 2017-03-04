@@ -12,9 +12,9 @@ namespace MongoMvc.Controllers
     public class HomeController : Controller
     {
         private readonly IRepository<Discipline> _DisciplineRepository;
-        private readonly IRepository<Lecturer> _LecturerRepository;
+        private readonly ILecturerRepository _LecturerRepository;
 
-        public HomeController(IRepository<Discipline> DisciplineRepository, IRepository<Lecturer> LecturerRepository)
+        public HomeController(IRepository<Discipline> DisciplineRepository, ILecturerRepository LecturerRepository)
         {
             _DisciplineRepository = DisciplineRepository;
             _LecturerRepository = LecturerRepository;
@@ -30,17 +30,15 @@ namespace MongoMvc.Controllers
             //IEnumerable<Note> noteElements = await _noteRepository.GetAllNotes();
             //ViewData["Message"] = string.Format($"Note Id: {Id} - Body: {noteElement.Body}");
 
-            return View(await _DisciplineRepository.GetAllNotesAsync());
+            return View(await _DisciplineRepository.GetAllAsync());
         }
 
         public IActionResult Init()
         {
-            _DisciplineRepository.RemoveAllNotes();
-            _LecturerRepository.RemoveAllNotes();
-            _LecturerRepository.AddNote(new Lecturer() { Name = "Гнатів Богдан Васильович", Descr = "доцент, кандидат фіз-мат наук" });
-            _LecturerRepository.AddNote(new Lecturer() { Name = "Гладун Володимир Романович", Descr = "доцент, кандидат фіз-мат наук" });
-            _DisciplineRepository.AddNote(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = _LecturerRepository.GetAllNotes().ToList(), YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, UpdatedOn = DateTime.Now });
-            _DisciplineRepository.AddNote(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = _LecturerRepository.GetAllNotes().ToList(), YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, UpdatedOn = DateTime.Now });
+            _LecturerRepository.Add(new Lecturer() { Name = "Гнатів Богдан Васильович", Descr = "доцент, кандидат фіз-мат наук" });
+            _LecturerRepository.Add(new Lecturer() { Name = "Гладун Володимир Романович", Descr = "доцент, кандидат фіз-мат наук" });
+            _DisciplineRepository.Add(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = _LecturerRepository.GetAll().ToList(), YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, UpdatedOn = DateTime.Now });
+            _DisciplineRepository.Add(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = _LecturerRepository.GetAll().ToList(), YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, UpdatedOn = DateTime.Now });
 
 
             ViewData["Message"] = string.Format($"Filled in 4 records");
@@ -50,19 +48,15 @@ namespace MongoMvc.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Lectures = new MultiSelectList(_LecturerRepository.GetAllNotes(), "Id", "Name");
+            ViewBag.Lectures = new MultiSelectList(_LecturerRepository.GetAll(), "Id", "Name");
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(Discipline disc, string[] Id)
-        {             
-            foreach(var tmp in Id)
-            {
-                disc.Lectors.Add(_LecturerRepository.GetNote(tmp));                
-            }
-            
-            _DisciplineRepository.AddNoteAsync(disc);
+        {
+            disc.Lectors = _LecturerRepository.GetLectorsByArray(Id); ;
+            _DisciplineRepository.AddAsync(disc);
             return RedirectToAction("Read");
         }
 

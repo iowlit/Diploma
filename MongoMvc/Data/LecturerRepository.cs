@@ -9,7 +9,7 @@ using MongoDB.Bson;
 
 namespace MongoMvc.Data
 {
-    public class LecturerRepository : IRepository<Lecturer>
+    public class LecturerRepository : ILecturerRepository
     {
         private readonly Context _context = null;
 
@@ -18,7 +18,7 @@ namespace MongoMvc.Data
             _context = new Context(settings);
         }
 
-        public IEnumerable<Lecturer> GetAllNotes()
+        public IEnumerable<Lecturer> GetAll()
         {
             try
             {
@@ -31,7 +31,7 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<IEnumerable<Lecturer>> GetAllNotesAsync()
+        public async Task<IEnumerable<Lecturer>> GetAllAsync()
         {
             try
             {
@@ -44,7 +44,7 @@ namespace MongoMvc.Data
             }
         }
 
-        public Lecturer GetNote(string id)
+        public Lecturer GetById(string id)
         {
             var filter = Builders<Lecturer>.Filter.Eq("Id", id);
 
@@ -61,7 +61,24 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task AddNoteAsync(Lecturer item)
+        public async Task<Lecturer> GetByIdAsync(string id)
+        {
+            var filter = Builders<Lecturer>.Filter.Eq("Id", id);
+
+            try
+            {
+                return await _context.Lecturers
+                                .Find(filter)
+                                .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                throw ex;
+            }
+        }
+
+        public async Task AddAsync(Lecturer item)
         {
             try
             {
@@ -74,7 +91,7 @@ namespace MongoMvc.Data
             }
         }
 
-        public void AddNote(Lecturer item)
+        public void Add(Lecturer item)
         {
             try
             {
@@ -87,7 +104,7 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<DeleteResult> RemoveNote(string id)
+        public async Task<DeleteResult> RemoveById(string id)
         {
             try
             {
@@ -101,12 +118,11 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<UpdateResult> UpdateNote(string id, string Name)
+        public async Task<UpdateResult> UpdateAsync(string id, Lecturer item)
         {
             var filter = Builders<Lecturer>.Filter.Eq(s => s.Id, id);
             var update = Builders<Lecturer>.Update
-                            .Set(s => s.Name, Name);
-                            //.CurrentDate(s => s.UpdatedOn);
+                            .Set(s => s.Name, item.Name);                            
 
             try
             {
@@ -119,43 +135,54 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<ReplaceOneResult> UpdateNote(string id, Lecturer item)
+        
+        List<Lecturer> ILecturerRepository.GetLectorsByArray(string[] lcs)
         {
-            try
+            var list = new List<Lecturer>();
+            foreach (var tmp in lcs)
             {
-                return await _context.Lecturers
-                            .ReplaceOneAsync(n => n.Id.Equals(id)
-                                            , item
-                                            , new UpdateOptions { IsUpsert = true });
+                list.Add(GetById(tmp));
             }
-            catch (Exception ex)
-            {
-                // log or manage the exception
-                throw ex;
-            }
+            return list;
         }
 
-        // Demo function - full document update
-        public async Task<ReplaceOneResult> UpdateNoteDocument(string id, string body)
-        {
-            var item = GetNote(id) ?? new Lecturer();
-            item.Name = body;
-            //item.UpdatedOn = DateTime.Now;
+        //    public async Task<ReplaceOneResult> UpdateNote(string id, Lecturer item)
+        //    {
+        //        try
+        //        {
+        //            return await _context.Lecturers
+        //                        .ReplaceOneAsync(n => n.Id.Equals(id)
+        //                                        , item
+        //                                        , new UpdateOptions { IsUpsert = true });
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            // log or manage the exception
+        //            throw ex;
+        //        }
+        //    }
 
-            return await UpdateNote(id, item);
-        }
+        //    // Demo function - full document update
+        //    public async Task<ReplaceOneResult> UpdateNoteDocument(string id, string body)
+        //    {
+        //        var item = GetById(id) ?? new Lecturer();
+        //        item.Name = body;
+        //        //item.UpdatedOn = DateTime.Now;
 
-        public async Task<DeleteResult> RemoveAllNotes()
-        {
-            try
-            {
-                return await _context.Lecturers.DeleteManyAsync(new BsonDocument());
-            }
-            catch (Exception ex)
-            {
-                // log or manage the exception
-                throw ex;
-            }
-        }
+        //        return await UpdateNote(id, item);
+        //    }
+
+        //    public async Task<DeleteResult> RemoveAllNotes()
+        //    {
+        //        try
+        //        {
+        //            return await _context.Lecturers.DeleteManyAsync(new BsonDocument());
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            // log or manage the exception
+        //            throw ex;
+        //        }
+        //    }
     }
 }
