@@ -1,8 +1,9 @@
 ﻿using System;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.IdGenerators;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.IdGenerators;
+using MongoDB.Bson;
 
 namespace MongoMvc.Model
 {
@@ -35,8 +36,23 @@ namespace MongoMvc.Model
     {
         public Discipline()
         {
-            this.Lectors = new List<Lecturer>();
+            Lectors = new List<Lecturer>();
+            Id = ObjectId.GenerateNewId().ToString();
         }
+
+        public Discipline(Discipline dc)
+        {
+            Id = ObjectId.GenerateNewId().ToString();
+            Name = dc.Name;
+            Course = dc.Course;
+            YearPart = dc.YearPart;
+            ModuleType = dc.ModuleType;
+            ModuleDescr = dc.ModuleDescr;
+            Lectors = dc.Lectors;
+            ControlType = dc.ControlType;
+            UpdatedOn = dc.UpdatedOn;
+        }
+                
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public string Id { get; set; }
 
@@ -60,7 +76,6 @@ namespace MongoMvc.Model
 
         [Display(Name = "Семестровий контроль")]
         public ControlType ControlType { get; set; } = ControlType.Exam;        
-        public DateTime UpdatedOn { get; set; } = DateTime.Now.Date;     
-                
-    }
+        public DateTime UpdatedOn { get; set; } = DateTime.Now.Date;  
+    }        
 }

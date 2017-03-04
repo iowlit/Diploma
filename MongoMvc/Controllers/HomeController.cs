@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoMvc.Interfaces;
 using MongoMvc.Model;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -55,8 +54,9 @@ namespace MongoMvc.Controllers
         [HttpPost]
         public IActionResult Create(Discipline disc, string[] Id)
         {
-            disc.Lectors = _LecturerRepository.GetLectorsByArray(Id);                        
-            _DisciplineRepository.Add(disc);
+            disc.Lectors = _LecturerRepository.GetLectorsByArray(Id);
+            var tmp = new Discipline(disc);                                  
+            _DisciplineRepository.Add(tmp);
             return RedirectToAction("Read");
         }
 

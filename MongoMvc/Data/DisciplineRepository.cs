@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-
 using MongoMvc.Interfaces;
 using MongoMvc.Model;
-using MongoDB.Bson;
 
 namespace MongoMvc.Data
 {
