@@ -33,6 +33,10 @@ namespace MongoMvc.Model
 
     public class Discipline
     {
+        public Discipline()
+        {
+            this.Lectors = new List<Lecturer>();
+        }
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public string Id { get; set; }
 
@@ -56,7 +60,7 @@ namespace MongoMvc.Model
 
         [Display(Name = "Семестровий контроль")]
         public ControlType ControlType { get; set; } = ControlType.Exam;        
-        public DateTime UpdatedOn { get; set; } = DateTime.Now.Date;       
-
+        public DateTime UpdatedOn { get; set; } = DateTime.Now.Date;     
+                
     }
 }

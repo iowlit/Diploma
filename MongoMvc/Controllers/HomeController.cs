@@ -55,8 +55,8 @@ namespace MongoMvc.Controllers
         [HttpPost]
         public IActionResult Create(Discipline disc, string[] Id)
         {
-            disc.Lectors = _LecturerRepository.GetLectorsByArray(Id); ;
-            _DisciplineRepository.AddAsync(disc);
+            disc.Lectors = _LecturerRepository.GetLectorsByArray(Id);                        
+            _DisciplineRepository.Add(disc);
             return RedirectToAction("Read");
         }
 
