@@ -1,13 +1,13 @@
 ﻿@model MongoMvc.Model.Discipline
 @using MongoMvc.Model
 
-@{ ViewBag.Title = "Створити дисципліну";}
+@{ ViewBag.Title = "Редагувати дисципліну";}
 
 <h2>@ViewBag.Title</h2>
 
-<form asp-controller="Home" asp-action="Create" method="post" class="form-horizontal" role="form">
+<form asp-controller="Home" asp-action="Edit" method="post" class="form-horizontal" role="form">
     <div class="form-horizontal">
-        <div asp-validation-summary="All" class="text-danger"></div>        
+        <div asp-validation-summary="All" class="text-danger"></div>
         <input asp-for="Id" type="hidden" />
         <div class="form-group">
             <label asp-for="Name" class="col-md-2 control-label"></label>
@@ -52,7 +52,7 @@
         </div>
         <div class="form-group">
             <label asp-for="Lectors" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-md-10">                
                 @Html.ListBox("Id", (MultiSelectList)ViewBag.Lectures, new { @class="form-control" })
                 <span asp-validation-for="Lectors" class="text-danger"></span>
             </div>
@@ -94,7 +94,7 @@
         </div>    
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Створити" class="btn btn-default" />
+                <input type="submit" value="Оновити" class="btn btn-default" />
             </div>
         </div>
     </div>

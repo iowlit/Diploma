@@ -36,3 +36,18 @@ textarea {
     display: none
   }
 }
+
+.myRight{
+    float: right;
+    position: relative;
+}
+
+.myLeft{
+    float: left;
+    position: relative;
+}
+
+.myBorders{
+    /*border: 1px solid #eeeeee;*/
+    padding-bottom: 20px;
+}

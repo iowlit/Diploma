@@ -13,7 +13,7 @@ namespace MongoMvc.Interfaces
         Task<T> GetByIdAsync(string id);
         Task AddAsync(T item);
         void Add(T item);
-        Task<DeleteResult> RemoveById(string id);
+        Task<DeleteResult> RemoveByIdAsync(string id);
         Task<UpdateResult> UpdateAsync(string id, T item);
 
         // demo interface - full document update

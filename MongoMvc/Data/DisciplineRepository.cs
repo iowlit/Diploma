@@ -79,9 +79,10 @@ namespace MongoMvc.Data
 
         public async Task AddAsync(Discipline item)
         {
+            var tmp = new Discipline(item);
             try
             {
-                await _context.Disciplines.InsertOneAsync(item);
+                await _context.Disciplines.InsertOneAsync(tmp);
             }
             catch (Exception ex)
             {
@@ -92,9 +93,10 @@ namespace MongoMvc.Data
 
         public void Add(Discipline item)
         {
+            var tmp = new Discipline(item);
             try
             {
-                _context.Disciplines.InsertOne(item);
+                _context.Disciplines.InsertOne(tmp);
             }
             catch (Exception ex)
             {
@@ -103,7 +105,7 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<DeleteResult> RemoveById(string id)
+        public async Task<DeleteResult> RemoveByIdAsync(string id)
         {
             try
             {
@@ -116,11 +118,22 @@ namespace MongoMvc.Data
                 throw ex;
             }
         }
+
         public async Task<UpdateResult> UpdateAsync(string id, Discipline item)
         {
             var filter = Builders<Discipline>.Filter.Eq(s => s.Id, id);
             var update = Builders<Discipline>.Update
                             .Set(s => s.Name, item.Name)
+                            .Set(s => s.Lectors, item.Lectors)
+                            .Set(s => s.ModuleType, item.ModuleType)
+                            .Set(s => s.ModuleDescr, item.ModuleDescr)
+                            .Set(s => s.ControlType, item.ControlType)
+                            .Set(s => s.Course, item.Course)
+                            .Set(s => s.YearPart, item.YearPart)
+                            .Set(s => s.Books, item.Books)
+                            .Set(s => s.Instructions, item.Instructions)
+                            .Set(s => s.HMEK, item.HMEK)
+                            .Set(s => s.VNS, item.VNS)                            
                             .CurrentDate(s => s.UpdatedOn);
 
             try

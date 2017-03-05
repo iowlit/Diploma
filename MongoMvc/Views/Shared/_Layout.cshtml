@@ -26,14 +26,33 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">MongoMvc</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Методичне забезпечення ПМ</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index"> > Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Init"> > Step 1. Init</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Read"> > Step 2. Read</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Read"> Курси </a></li>
+                    <li><a asp-area="" asp-controller="Lectors" asp-action="Read"> Лектори </a></li>                    
                 </ul>
+                @if (true)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                @*@Html.ActionLink(@*User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+                            </li>                            
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Вийти</a></li>
+                        </ul>
+                    }
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">                        
+                        <li>@Html.ActionLink("Увійти", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    </ul>
+                }
             </div>
         </div>
     </div>
@@ -41,7 +60,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - MongoMvc Sample project</p>
+            <p>&copy; 2017 - Методичне забезпечення дисциплін кафедри "Прикладна математика"</p>
         </footer>
     </div>
 

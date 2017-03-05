@@ -1,16 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Усі записи";
+    ViewData["Title"] = "Усі дисципліни";
 }
 
 @model IEnumerable<MongoMvc.Model.Discipline>
 
 
 <h2>@ViewData["Title"].</h2>
-    
+<hr/>
 <div class="row">
     @foreach (var item in Model)
-    {
-        <div class="col-md-6">
+    {        
+        <div class="col-md-6 myBorders">            
             <ul>                
                 <h3>@item.Name</h3>
                 <li><b>Тип модуля:</b> @GetModuleType(item.ModuleType)</li>
@@ -27,10 +27,12 @@
                 <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(item.Books)</ol></li>
                 <li><b>Методичні вказівки:</b> <ol>@Html.Raw(item.Instructions)</ol></li>
                 <li><b>НМЕК:</b> <ol>@Html.Raw(item.HMEK)</ol></li>
-                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>
-                <sub>@item.UpdatedOn.ToString("d")</sub>                
-            </ul>
-        </div>
+                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>                
+                <div class="myLeft"><sub>@item.UpdatedOn.ToString("d")</sub></div>
+                <div class="myRight">| @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Видалити", "Delete", new { id = item.Id }) |</div> 
+            </ul>            
+        </div>        
     }
 </div>
 

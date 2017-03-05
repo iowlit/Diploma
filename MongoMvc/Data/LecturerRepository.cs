@@ -104,7 +104,7 @@ namespace MongoMvc.Data
             }
         }
 
-        public async Task<DeleteResult> RemoveById(string id)
+        public async Task<DeleteResult> RemoveByIdAsync(string id)
         {
             try
             {
@@ -141,7 +141,10 @@ namespace MongoMvc.Data
             var list = new List<Lecturer>();
             foreach (var tmp in lcs)
             {
-                list.Add(GetById(tmp));
+                if(GetById(tmp) != null)
+                {
+                    list.Add(GetById(tmp));
+                }                
             }
             return list;
         }
