@@ -1,0 +1,37 @@
+﻿@model MongoMvc.Model.Lecturer
+@{
+    ViewBag.Title = "Видалити - Методичне забезпечення ПМ";
+}
+
+<h3>Видалити викладача?</h3>
+
+<div>    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descr)
+        </dd>        
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @:<span class="MyChecker">Видалити з усіх дисциплін?</span>
+        @Html.CheckBox("check")
+        <div class="form-actions no-color">
+            <input type="submit" value="Видалити" class="btn btn-danger" /> |
+            @Html.ActionLink("Назад", "Read", "Lecturer")
+        </div>
+    }
+</div>
+

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MongoMvc.Model.Lecturer>
+
+@{
+    ViewBag.Title = "Викладачі";
+}
+
+<h2>Список викладачів</h2>
+@if (true)
+{
+    <p>
+        <b>@Html.ActionLink("Створити", "Create", "Lecturer")</b>
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descr)
+        </th>        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descr)
+            </td>            
+            <td>                
+                |   @Html.ActionLink("Оновити", "Edit", "Lecturer" , new { id = item.Id }) |
+                    @Html.ActionLink("Видалити", "Delete", "Lecturer" ,new { id = item.Id }) |                    
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,32 @@
+﻿@model MongoMvc.Model.Lecturer
+
+@{ ViewBag.Title = "Додати викладача";}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-controller="Lecturer" asp-action="Edit" method="post" class="form-horizontal" role="form">
+    <div class="form-horizontal">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="Id" type="hidden" />
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" type="text" placeholder="Write here..."></input>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Descr" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Descr" class="form-control" placeholder="Write here..."></textarea>
+                <span asp-validation-for="Descr" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Оновити" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>

@@ -8,13 +8,13 @@ using MongoMvc.Model;
 
 namespace MongoMvc.Data
 {
-    public class DisciplineRepository : IRepository<Discipline>
+    public class DisciplineRepository : IDisciplineRepository
     {
-        private readonly Context _context = null;
+        private readonly Context _context = null;        
 
         public DisciplineRepository(IOptions<Settings> settings)
         {
-            _context = new Context(settings);
+            _context = new Context(settings);            
         }
 
         public IEnumerable<Discipline> GetAll()
@@ -145,6 +145,31 @@ namespace MongoMvc.Data
                 // log or manage the exception
                 throw ex;
             }
+        }
+
+        public void RemoveLecturerAsync(string id , Lecturer lc)
+        {
+            var dcs = GetAll();
+            foreach(var item in dcs)
+            {
+                List<Lecturer> toSet = item.Lectors;
+                if (toSet.Remove(lc))
+                {
+                    var filter = Builders<Discipline>.Filter.Eq(s => s.Id, item.Id);
+                    var update = Builders<Discipline>.Update
+                                    .Set(s => s.Lectors, toSet)
+                                    .CurrentDate(s => s.UpdatedOn);
+                    try
+                    {
+                        _context.Disciplines.UpdateOne(filter, update);
+                    }
+                    catch (Exception ex)
+                    {
+                        // log or manage the exception
+                        throw ex;
+                    }
+                }                
+            } 
         }
 
         //public async Task<ReplaceOneResult> UpdateAsync(string id, Discipline item)

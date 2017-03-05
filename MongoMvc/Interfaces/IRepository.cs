@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MongoMvc.Model;
 using MongoDB.Driver;
 
 namespace MongoMvc.Interfaces

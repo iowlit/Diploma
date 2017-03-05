@@ -6,16 +6,17 @@ using MongoDB.Driver;
 using MongoMvc.Interfaces;
 using MongoMvc.Model;
 using MongoDB.Bson;
+using MongoMvc.Data;
 
 namespace MongoMvc.Data
 {
     public class LecturerRepository : ILecturerRepository
     {
-        private readonly Context _context = null;
+        private readonly Context _context = null;        
 
         public LecturerRepository(IOptions<Settings> settings)
         {
-            _context = new Context(settings);
+            _context = new Context(settings);            
         }
 
         public IEnumerable<Lecturer> GetAll()
@@ -117,6 +118,7 @@ namespace MongoMvc.Data
                 throw ex;
             }
         }
+        
 
         public async Task<UpdateResult> UpdateAsync(string id, Lecturer item)
         {

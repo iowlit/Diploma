@@ -6,13 +6,19 @@
 
 
 <h2>@ViewData["Title"].</h2>
+@if (true)
+{
+    <p>
+        <b>@Html.ActionLink("Створити", "Create", "Home")</b>
+    </p>
+}
 <hr/>
 <div class="row">
     @foreach (var item in Model)
     {        
-        <div class="col-md-6 myBorders">            
-            <ul>                
-                <h3>@item.Name</h3>
+        <div class="col-md-6 myBorders">  
+            <h3>@item.Name</h3>          
+            <ul>
                 <li><b>Тип модуля:</b> @GetModuleType(item.ModuleType)</li>
                 <li><b>Обсяг модуля:</b> @item.ModuleDescr</li>
                 <li>
@@ -27,11 +33,13 @@
                 <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(item.Books)</ol></li>
                 <li><b>Методичні вказівки:</b> <ol>@Html.Raw(item.Instructions)</ol></li>
                 <li><b>НМЕК:</b> <ol>@Html.Raw(item.HMEK)</ol></li>
-                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>                
-                <div class="myLeft"><sub>@item.UpdatedOn.ToString("d")</sub></div>
-                <div class="myRight">| @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Видалити", "Delete", new { id = item.Id }) |</div> 
+                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>
             </ul>            
+            <div class="myLeft"><sub>@item.UpdatedOn.ToString("d")</sub></div>
+            <div class="myRight">
+                | @Html.ActionLink("Редагувати", "Edit", "Home", new { id = item.Id }) |
+                @Html.ActionLink("Видалити", "Delete", "Home", new { id = item.Id }) |
+            </div>            
         </div>        
     }
 </div>

@@ -1,6 +1,6 @@
 ﻿@model MongoMvc.Model.Discipline
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Видалити - Методичне забезпечення ПМ";
 }
 
 <h3>Видалити цю дисципліну?</h3>
@@ -24,18 +24,17 @@
                     <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(Model.Books)</ol></li>
                     <li><b>Методичні вказівки:</b> <ol>@Html.Raw(Model.Instructions)</ol></li>
                     <li><b>НМЕК:</b> <ol>@Html.Raw(Model.HMEK)</ol></li>
-                    <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(Model.VNS)</ol></li>
-                    <sub>@Model.UpdatedOn.ToString("d")</sub>                   
+                    <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(Model.VNS)</ol></li>                                     
                 </ul>
+                <sub>@Model.UpdatedOn.ToString("d")</sub>  
             </div>        
     </div>
 
     @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+    {       
         <div class="form-actions no-color">
-            <input type="submit" value="Видалити" class="btn btn-default" /> |
-            @Html.ActionLink("Назад", "Read")
+            <input type="submit" value="Видалити" class="btn btn-danger" /> |
+            @Html.ActionLink("Назад", "Read", "Home")
         </div>
     }
 </div>

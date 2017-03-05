@@ -10,10 +10,10 @@ namespace MongoMvc.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepository<Discipline> _DisciplineRepository;
+        private readonly IDisciplineRepository _DisciplineRepository;
         private readonly ILecturerRepository _LecturerRepository;
 
-        public HomeController(IRepository<Discipline> DisciplineRepository, ILecturerRepository LecturerRepository)
+        public HomeController(IDisciplineRepository DisciplineRepository, ILecturerRepository LecturerRepository)
         {
             _DisciplineRepository = DisciplineRepository;
             _LecturerRepository = LecturerRepository;
@@ -30,19 +30,7 @@ namespace MongoMvc.Controllers
             //ViewData["Message"] = string.Format($"Note Id: {Id} - Body: {noteElement.Body}");
 
             return View(await _DisciplineRepository.GetAllAsync());
-        }
-
-        public IActionResult Init()
-        {
-            _LecturerRepository.Add(new Lecturer() { Name = "Гнатів Богдан Васильович", Descr = "доцент, кандидат фіз-мат наук" });
-            _LecturerRepository.Add(new Lecturer() { Name = "Гладун Володимир Романович", Descr = "доцент, кандидат фіз-мат наук" });
-            _DisciplineRepository.Add(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = _LecturerRepository.GetAll().ToList(), YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, UpdatedOn = DateTime.Now });
-            _DisciplineRepository.Add(new Discipline() { Name = "Математичний аналіз, ч.1", ModuleType = ModuleType.Required, ModuleDescr = "загальна кількість годин - 240 (Кредитів: EKTS - 8)..", Lectors = _LecturerRepository.GetAll().ToList(), YearPart = YearPart.Autumn, Course = 1, ControlType = ControlType.Exam, UpdatedOn = DateTime.Now });
-
-
-            ViewData["Message"] = string.Format($"Filled in 4 records");
-            return View();
-        }
+        }        
 
         [HttpGet]
         public IActionResult Create()
@@ -105,11 +93,6 @@ namespace MongoMvc.Controllers
         {
             await _DisciplineRepository.RemoveByIdAsync(id);           
             return RedirectToAction("Read");
-        }
-
-        public IActionResult Error()
-        {
-            return View();
-        }
+        }                
     }
 }
