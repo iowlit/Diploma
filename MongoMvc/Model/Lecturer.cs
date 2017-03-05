@@ -8,7 +8,7 @@ namespace MongoMvc.Model
     {
         public Lecturer()
         {
-            Id = ObjectId.GenerateNewId.ToString();
+            Id = ObjectId.GenerateNewId().ToString();
         }
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public string Id { get; set; }

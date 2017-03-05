@@ -1,23 +1,40 @@
 ﻿@{
-    ViewData["Title"] = "Read all records";
+    ViewData["Title"] = "Усі записи";
 }
 
 @model IEnumerable<MongoMvc.Model.Discipline>
 
 
 <h2>@ViewData["Title"].</h2>
-    <ul>
-        @foreach (var item in Model)
-        {
-            <li>@item.Name</li>
-            <li>Тип модуля: @GetModuleType(item.ModuleType)</li>
-            <li>Обсяг модуля: @item.ModuleDescr</li>
-            <li>Лектори: <ul>@foreach (var lc in item.Lectors) {<li>@lc.Name &nbsp @lc.Descr</li>}</ul></li>
-            <li>Семестровий контроль: @GetControlType(item.ControlType)</li>
-            <sub>@item.UpdatedOn.ToString("d")</sub>
-            <hr>
-        }
-    </ul>
+    
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6">
+            <ul>                
+                <h3>@item.Name</h3>
+                <li><b>Тип модуля:</b> @GetModuleType(item.ModuleType)</li>
+                <li><b>Обсяг модуля:</b> @item.ModuleDescr</li>
+                <li>
+                    <b>Лектори:</b> <ul>
+                        @foreach (var lc in item.Lectors)
+                        {
+                            <li>@lc.Name &nbsp @lc.Descr</li>
+                        }
+                    </ul>
+                </li>
+                <li><b>Семестровий контроль:</b> @GetControlType(item.ControlType)</li>
+                <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(item.Books)</ol></li>
+                <li><b>Методичні вказівки:</b> <ol>@Html.Raw(item.Instructions)</ol></li>
+                <li><b>НМЕК:</b> <ol>@Html.Raw(item.HMEK)</ol></li>
+                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>
+                <sub>@item.UpdatedOn.ToString("d")</sub>                
+            </ul>
+        </div>
+    }
+</div>
+
+        
 
 
 @*helper not supported by ASP.NET Core*@

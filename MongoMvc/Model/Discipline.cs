@@ -50,14 +50,18 @@ namespace MongoMvc.Model
             ModuleDescr = dc.ModuleDescr;
             Lectors = dc.Lectors;
             ControlType = dc.ControlType;
-            UpdatedOn = dc.UpdatedOn;
+            UpdatedOn = dc.UpdatedOn;            
+            Books = dc.Books;
+            Instructions = dc.Instructions;
+            HMEK = dc.HMEK;
+            VNS = dc.VNS;
         }
                 
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
-        public string Id { get; set; }
+        public String Id { get; set; }
 
         [Display(Name = "Назва")]
-        public string Name { get; set; } = string.Empty;
+        public String Name { get; set; } = string.Empty;
 
         [Display(Name = "Курс")]
         public int Course { get; set; } = 1;
@@ -69,10 +73,22 @@ namespace MongoMvc.Model
         public ModuleType ModuleType { get; set; } = ModuleType.Required;
 
         [Display(Name = "Обсяг модуля")]
-        public string ModuleDescr { get; set; }
+        public String ModuleDescr { get; set; }
 
         [Display(Name = "Лектори")]
         public List<Lecturer> Lectors { get; set; }
+
+        [Display(Name = "Посібники, підручники, тексти лекцій")]
+        public String Books { get; set; } = string.Empty;
+
+        [Display(Name = "Методичні вказівки")]
+        public String Instructions { get; set; } = string.Empty;
+
+        [Display(Name = "НМЕК")]
+        public String HMEK { get; set; } = string.Empty;
+
+        [Display(Name = "ВНС кафедри, мережевий диск")]
+        public String VNS { get; set; } = string.Empty;
 
         [Display(Name = "Семестровий контроль")]
         public ControlType ControlType { get; set; } = ControlType.Exam;        

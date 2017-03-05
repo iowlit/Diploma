@@ -11,10 +11,10 @@
         <div class="form-group">
             <label asp-for="Name" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <textarea asp-for="Name" class="form-control"></textarea>
+                <textarea asp-for="Name" class="form-control" placeholder="Write here..."></textarea>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-        </div>
+        </div>        
         <div class="form-group">
             <label asp-for="Course" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -45,7 +45,7 @@
         <div class="form-group">
             <label asp-for="ModuleDescr" class="col-md-2 control-label"></label>
             <div class="col-md-10">                
-                <textarea asp-for="ModuleDescr" class="form-control"></textarea>
+                <textarea asp-for="ModuleDescr" class="form-control" placeholder="Write here..."></textarea>
                 <span asp-validation-for="ModuleDescr" class="text-danger"></span>
             </div>
         </div>
@@ -62,7 +62,35 @@
                 <select asp-for="ControlType" asp-items="Html.GetEnumSelectList<ControlType>()" class="form-control"></select>
                 <span asp-validation-for="ControlType" class="text-danger"></span>
             </div>
-        </div>        
+        </div>
+        <div class="form-group">
+            <label asp-for="Books" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Books" class="form-control" placeholder="Replace numbers with <li> tag and ends of items close with </li> tag"></textarea>
+                <span asp-validation-for="Books" class="text-danger"></span>
+            </div>
+        </div> 
+        <div class="form-group">
+            <label asp-for="Instructions" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Instructions" class="form-control" placeholder="Replace numbers with <li> tag and ends of items close with </li> tag"></textarea>
+                <span asp-validation-for="Instructions" class="text-danger"></span>
+            </div>
+        </div>   
+        <div class="form-group">
+            <label asp-for="HMEK" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="HMEK" class="form-control" placeholder="Replace numbers with <li> tag and ends of items close with </li> tag"></textarea>
+                <span asp-validation-for="HMEK" class="text-danger"></span>
+            </div>
+        </div>  
+        <div class="form-group">
+            <label asp-for="VNS" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="VNS" class="form-control" placeholder="Replace numbers with <li> tag and ends of items close with </li> tag"></textarea>
+                <span asp-validation-for="VNS" class="text-danger"></span>
+            </div>
+        </div>    
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Створити" class="btn btn-default" />
