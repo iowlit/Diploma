@@ -19,6 +19,8 @@
         <div class="col-md-6 myBorders">  
             <h3>@item.Name</h3>          
             <ul>
+                <li><b>Курс/Спеціалізація:</b> @GetCourse(item.Course)</li>
+                <li><b>Семестр:</b> @GetYearPart(item.YearPart)</li>
                 <li><b>Тип модуля:</b> @GetModuleType(item.ModuleType)</li>
                 <li><b>Обсяг модуля:</b> @item.ModuleDescr</li>
                 <li>
@@ -72,6 +74,50 @@
             case MongoMvc.Model.ModuleType.NotRequired:
                 return "Необов'язковий";
                 break;
+            default: return "Невідомо";
+        }
+    }
+    public string GetYearPart(MongoMvc.Model.YearPart yp)
+    {
+        switch (yp)
+        {
+            case MongoMvc.Model.YearPart.Autumn:
+                return "Осінній";
+                break;
+            case MongoMvc.Model.YearPart.Spring:
+                return "Весняний";
+                break;
+            default: return "Невідомо";
+        }
+    }
+    public string GetCourse(int course)
+    {
+        switch (course)
+        {
+            case 1:
+                return "1";
+
+            case 2:
+                return "2";
+
+            case 3:
+                return "3";
+
+            case 4:
+                return "4";
+
+            case 5:
+                return "Математичне і комп'ютерне моделювання";
+
+            case 6:
+                return "Математичне моделювання мікро- і нано систем";
+
+            case 7:
+                return "Обчислювальна механіка";
+
+            case 8:
+                return "Комп'ютерні науки та інформаційні технології";
+
             default: return "Невідомо";
         }
     }

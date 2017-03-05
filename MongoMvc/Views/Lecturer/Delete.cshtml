@@ -27,7 +27,7 @@
     @using (Html.BeginForm())
     {
         @:<span class="MyChecker">Видалити з усіх дисциплін?</span>
-        @Html.CheckBox("check")
+        @Html.CheckBox("check", true)
         <div class="form-actions no-color">
             <input type="submit" value="Видалити" class="btn btn-danger" /> |
             @Html.ActionLink("Назад", "Read", "Lecturer")

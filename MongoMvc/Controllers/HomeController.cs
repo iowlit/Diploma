@@ -25,10 +25,7 @@ namespace MongoMvc.Controllers
         }
 
         public async Task<IActionResult> Read()
-        {
-            //IEnumerable<Note> noteElements = await _noteRepository.GetAllNotes();
-            //ViewData["Message"] = string.Format($"Note Id: {Id} - Body: {noteElement.Body}");
-
+        {            
             return View(await _DisciplineRepository.GetAllAsync());
         }        
 
@@ -93,6 +90,22 @@ namespace MongoMvc.Controllers
         {
             await _DisciplineRepository.RemoveByIdAsync(id);           
             return RedirectToAction("Read");
-        }                
+        }
+
+        [HttpGet]
+        public IActionResult Course(string id)
+        {
+            if (id == null)
+            {
+                return new BadRequestResult();
+            }
+            //Discipline disc = await _DisciplineRepository.GetByIdAsync(id);
+            //if (disc == null)
+            //{
+            //    return new NotFoundResult();
+            //}
+            //ViewBag.Lectures = new MultiSelectList(_LecturerRepository.GetAll(), "Id", "Name");
+            return Content(id);
+        }
     }
 }

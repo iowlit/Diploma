@@ -1,20 +1,55 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    ul {
+        list-style-type: none;         
+    }
+
+    li {
+        font-size: larger;
+    }
+
+    .rightBorder{
+        border-right: 0.5px solid #eeeeee;
+    }
+    .leftBorder{
+        border-left: 0.5px solid #eeeeee;
+    }
+</style>
 
 <div class="row">
-    <div class="col-md-3">
-        <h2>Application uses</h2>
+    <div class="col-md-6">
+        <h2>Бакалавр</h2>
+        <h4>Спеціальність: <i>113 "Прикладна математика"</i></h4>       
         <ul>
-            <li>This starts from the <a href="http://www.qappdesign.com/using-mongodb-with-net-core-webapi/">sample application</a>, created initially for ASP.NET Core WebAPI <br /></li>
-            <li>It extends the application with a Search method</li>
+            <li><a href="~/Home/Course/1">&#8544 Курс</a></li>
+            <li><a href="~/Home/Course/2">&#8545 Курс</a></li>
+            <li><a href="~/Home/Course/3">&#8546 Курс</a></li>
+            <li><a href="~/Home/Course/4">&#8547 Курс</a></li>
         </ul>
     </div>
-    <div class="col-md-3">
-        <h2>Controller actions</h2>
+    <div class="col-md-6">
+        <h2>Магістр</h2>
+        <h4>Спеціальність: <i>113 "Прикладна математика"</i></h4>
         <ul>
-            <li><strong>Init</strong>: Fill with some sample data</li>
-            <li><strong>Read</strong>: Reads one record</li>
+            <li>
+                <h5>Спеціалізації:</h5>
+                <ul>
+                    <li><a href="~/Home/Course/5">Математичне і комп'ютерне моделювання</a></li>
+                    <li><a href="~/Home/Course/6">Математичне моделювання мікро- і нано систем</a></li>
+                    <li><a href="~/Home/Course/7">Обчислювальна механіка</a></li>
+                </ul>
+            </li>            
+        </ul>
+        <h4>Спеціальність: <i>122 "Комп'ютерні науки та інформаційні технології"</i></h4>
+        <ul>
+            <li>
+                <h5>Спеціалізації:</h5>
+                <ul>
+                    <li><a href="~/Home/Course/8">Комп'ютерні науки та інформаційні технології</a></li>                    
+                </ul>
+            </li>
         </ul>
     </div>
 </div>
