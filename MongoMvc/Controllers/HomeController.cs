@@ -1,10 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MongoMvc.Interfaces;
 using MongoMvc.Model;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MongoMvc.Repository;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.Formatters.Json;
 
 namespace MongoMvc.Controllers
 {
@@ -93,19 +94,9 @@ namespace MongoMvc.Controllers
         }
 
         [HttpGet]
-        public IActionResult Course(string id)
-        {
-            if (id == null)
-            {
-                return new BadRequestResult();
-            }
-            //Discipline disc = await _DisciplineRepository.GetByIdAsync(id);
-            //if (disc == null)
-            //{
-            //    return new NotFoundResult();
-            //}
-            //ViewBag.Lectures = new MultiSelectList(_LecturerRepository.GetAll(), "Id", "Name");
-            return Content(id);
+        public async Task<IActionResult> Course(int id)
+        {            
+            return  View(await _DisciplineRepository.GetByCourseAsync(id)) ;
         }
     }
 }

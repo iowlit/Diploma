@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using MongoMvc.Interfaces;
+using MongoMvc.Repository;
 using MongoMvc.Model;
 
 namespace MongoMvc.Data
@@ -170,32 +170,19 @@ namespace MongoMvc.Data
             } 
         }
 
-        //public async Task<ReplaceOneResult> UpdateAsync(string id, Discipline item)
-        //{
-        //    try
-        //    {
-        //        return await _context.Disciplines
-        //                    .ReplaceOneAsync(n => n.Id.Equals(id)
-        //                                    , item
-        //                                    , new UpdateOptions { IsUpsert = true });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // log or manage the exception
-        //        throw ex;
-        //    }
-        //}
-
-
-        // Demo function - full document update
-        //public async Task<ReplaceOneResult> UpdateNoteDocument(string id, string body)
-        //{
-        //    var item = GetById(id) ?? new Discipline();
-        //    item.Name = body;
-        //    item.UpdatedOn = DateTime.Now;
-
-        //    return await UpdateNote(id, item);
-        //}
+        public async Task<IEnumerable<Discipline>> GetByCourseAsync(int CourseId)
+        {
+            var filter = Builders<Discipline>.Filter.Eq("Course", CourseId);
+            try
+            {
+                return await _context.Disciplines.Find(filter).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                throw ex;
+            }
+        }
 
         //public async Task<DeleteResult> RemoveAllNotes()
         //{

@@ -1,0 +1,173 @@
+﻿@model IEnumerable<MongoMvc.Model.Discipline>
+@using MongoMvc.Model
+
+<h3>@GetCourse(Model.FirstOrDefault().Course)</h3>
+
+@{
+    var autumn = new List<Discipline>();
+    var spring = new List<Discipline>();
+    int identity = 1;
+    foreach(var tmp in Model)
+    {
+        if (tmp.YearPart == 0)
+        {
+            autumn.Add(tmp);
+        }
+        else
+        {
+            spring.Add(tmp);
+        }
+    }
+} 
+
+<hr/>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Осінній семестр</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        
+                    </th>
+                    <th>
+                        Назва
+                    </th>
+                    <th>
+                        Тип
+                    </th>                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in autumn)
+                {
+                    <tr>
+                        <td>                            
+                            @identity.
+                            @{ identity++; }
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.Name, "Discipline", new { id = item.Id })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(x => item.ControlType)
+                        </td>                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h4>Весняний семестр</h4>
+        @{ identity = 1; }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        Назва
+                    </th>
+                    <th>
+                        Тип
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in spring)
+                {
+                    <tr>
+                        <td>
+                            @identity.
+                            @{ identity++; }
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.Name, "Discipline", new { id = item.Id })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(x => item.ControlType)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>  
+
+        
+
+
+@*helper not supported by ASP.NET Core*@
+@functions {
+    public string GetControlType(MongoMvc.Model.ControlType ct)
+    {
+        switch (ct)
+        {
+            case MongoMvc.Model.ControlType.Exam:
+                return "Екзамен";
+                break;
+            case MongoMvc.Model.ControlType.Zalik:
+                return "Залік";
+                break;
+            default: return "Невідомо";
+        }
+    }
+    public string GetModuleType(MongoMvc.Model.ModuleType mt)
+    {
+        switch (mt)
+        {
+            case MongoMvc.Model.ModuleType.Required:
+                return "Обов'язковий";
+                break;
+            case MongoMvc.Model.ModuleType.NotRequired:
+                return "Необов'язковий";
+                break;
+            default: return "Невідомо";
+        }
+    }
+    public string GetYearPart(MongoMvc.Model.YearPart yp)
+    {
+        switch (yp)
+        {
+            case MongoMvc.Model.YearPart.Autumn:
+                return "Осінній";
+                break;
+            case MongoMvc.Model.YearPart.Spring:
+                return "Весняний";
+                break;
+            default: return "Невідомо";
+        }
+    }
+    public string GetCourse(int course)
+    {
+        switch (course)
+        {
+            case 1:
+                return "1 Курс";
+
+            case 2:
+                return "2 Курс";
+
+            case 3:
+                return "3 Курс";
+
+            case 4:
+                return "4 Курс";
+
+            case 5:
+                return "Математичне і комп'ютерне моделювання";
+
+            case 6:
+                return "Математичне моделювання мікро- і нано систем";
+
+            case 7:
+                return "Обчислювальна механіка";
+
+            case 8:
+                return "Комп'ютерні науки та інформаційні технології";
+
+            default: return "Невідомо";
+        }
+    }
+}

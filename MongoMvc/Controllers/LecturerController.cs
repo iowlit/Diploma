@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MongoMvc.Interfaces;
+using MongoMvc.Repository;
 using MongoMvc.Model;
 
 namespace MongoMvc.Controllers

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MongoDB.Driver;
 
-namespace MongoMvc.Interfaces
+namespace MongoMvc.Repository
 {
     public interface IRepository<T> where T : class
     {
@@ -13,12 +13,6 @@ namespace MongoMvc.Interfaces
         Task AddAsync(T item);
         void Add(T item);
         Task<DeleteResult> RemoveByIdAsync(string id);
-        Task<UpdateResult> UpdateAsync(string id, T item);
-
-        // demo interface - full document update
-        //Task<ReplaceOneResult> UpdateNoteDocument(string id, string body);
-
-        //// should be used with high cautious, only in relation with demo setup
-        //Task<DeleteResult> RemoveAllNotes();
+        Task<UpdateResult> UpdateAsync(string id, T item);        
     }
 }

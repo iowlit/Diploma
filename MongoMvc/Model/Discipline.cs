@@ -29,8 +29,7 @@ namespace MongoMvc.Model
         Exam = 0,
         [Display(Name = "Залік")]
         Zalik = 1
-    }
-       
+    }       
 
     public class Discipline
     {

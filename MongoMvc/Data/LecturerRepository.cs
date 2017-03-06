@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using MongoMvc.Interfaces;
+using MongoMvc.Repository;
 using MongoMvc.Model;
 
 namespace MongoMvc.Data
@@ -49,7 +49,7 @@ namespace MongoMvc.Data
 
             try
             {
-                return  _context.Lecturers
+                return _context.Lecturers
                                 .Find(filter)
                                 .FirstOrDefault();
             }
@@ -58,7 +58,7 @@ namespace MongoMvc.Data
                 // log or manage the exception
                 throw ex;
             }
-        }
+        }                    
 
         public async Task<Lecturer> GetByIdAsync(string id)
         {
@@ -75,7 +75,7 @@ namespace MongoMvc.Data
                 // log or manage the exception
                 throw ex;
             }
-        }
+        }        
 
         public async Task AddAsync(Lecturer item)
         {
@@ -88,7 +88,7 @@ namespace MongoMvc.Data
                 // log or manage the exception
                 throw ex;
             }
-        }
+        }        
 
         public void Add(Lecturer item)
         {
@@ -101,7 +101,7 @@ namespace MongoMvc.Data
                 // log or manage the exception
                 throw ex;
             }
-        }
+        }        
 
         public async Task<DeleteResult> RemoveByIdAsync(string id)
         {
@@ -115,14 +115,13 @@ namespace MongoMvc.Data
                 // log or manage the exception
                 throw ex;
             }
-        }
-        
+        }        
 
         public async Task<UpdateResult> UpdateAsync(string id, Lecturer item)
         {
             var filter = Builders<Lecturer>.Filter.Eq(s => s.Id, id);
             var update = Builders<Lecturer>.Update
-                            .Set(s => s.Name, item.Name);                            
+                            .Set(s => s.Name, item.Name);
 
             try
             {
@@ -133,10 +132,9 @@ namespace MongoMvc.Data
                 // log or manage the exception
                 throw ex;
             }
-        }
-
+        }        
         
-        List<Lecturer> ILecturerRepository.GetLectorsByArray(string[] lcs)
+        public List<Lecturer> GetLectorsByArray(string[] lcs)
         {
             var list = new List<Lecturer>();
             foreach (var tmp in lcs)
@@ -148,33 +146,7 @@ namespace MongoMvc.Data
             }
             return list;
         }
-
-        //    public async Task<ReplaceOneResult> UpdateNote(string id, Lecturer item)
-        //    {
-        //        try
-        //        {
-        //            return await _context.Lecturers
-        //                        .ReplaceOneAsync(n => n.Id.Equals(id)
-        //                                        , item
-        //                                        , new UpdateOptions { IsUpsert = true });
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            // log or manage the exception
-        //            throw ex;
-        //        }
-        //    }
-
-        //    // Demo function - full document update
-        //    public async Task<ReplaceOneResult> UpdateNoteDocument(string id, string body)
-        //    {
-        //        var item = GetById(id) ?? new Lecturer();
-        //        item.Name = body;
-        //        //item.UpdatedOn = DateTime.Now;
-
-        //        return await UpdateNote(id, item);
-        //    }
-
+                
         //    public async Task<DeleteResult> RemoveAllNotes()
         //    {
         //        try
