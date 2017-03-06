@@ -5,14 +5,15 @@
 @model IEnumerable<MongoMvc.Model.Discipline>
 
 
-<h2>@ViewData["Title"].</h2>
+<h2>@ViewData["Title"]</h2>
+
+<hr/>
 @if (true)
 {
-    <p>
-        <b>@Html.ActionLink("Створити", "Create", "Home")</b>
-    </p>
+
+    <b>@Html.ActionLink("Створити", "Create", "Home")</b>
+
 }
-<hr/>
 <div class="row">
     @foreach (var item in Model)
     {        
@@ -37,8 +38,8 @@
                 <li><b>НМЕК:</b> <ol>@Html.Raw(item.HMEK)</ol></li>
                 <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>
             </ul>            
-            <div class="myLeft"><sub>@item.UpdatedOn.ToString("d")</sub></div>
-            <div class="myRight">
+            <div class="pull-left"><sub>@item.UpdatedOn.ToString("d")</sub></div>
+            <div class="pull-right">
                 | @Html.ActionLink("Редагувати", "Edit", "Home", new { id = item.Id }) |
                 @Html.ActionLink("Видалити", "Delete", "Home", new { id = item.Id }) |
             </div>            
