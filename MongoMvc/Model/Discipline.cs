@@ -38,24 +38,7 @@ namespace MongoMvc.Model
         {
             Lectors = new List<Lecturer>();
             Id = ObjectId.GenerateNewId().ToString();
-        }
-
-        public Discipline(Discipline dc)
-        {
-            Id = ObjectId.GenerateNewId().ToString();
-            Name = dc.Name;
-            Course = dc.Course;
-            YearPart = dc.YearPart;
-            ModuleType = dc.ModuleType;
-            ModuleDescr = dc.ModuleDescr;
-            Lectors = dc.Lectors;
-            ControlType = dc.ControlType;
-            UpdatedOn = dc.UpdatedOn;            
-            Books = dc.Books;
-            Instructions = dc.Instructions;
-            HMEK = dc.HMEK;
-            VNS = dc.VNS;
-        }
+        }        
                 
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public String Id { get; set; }

@@ -49,7 +49,7 @@ namespace MongoMvc.Data
 
             try
             {
-                return  _context.Disciplines
+                return _context.Disciplines
                                 .Find(filter)
                                 .FirstOrDefault();
             }
@@ -78,11 +78,10 @@ namespace MongoMvc.Data
         }
 
         public async Task AddAsync(Discipline item)
-        {
-            var tmp = new Discipline(item);
+        {            
             try
             {
-                await _context.Disciplines.InsertOneAsync(tmp);
+                await _context.Disciplines.InsertOneAsync(item);
             }
             catch (Exception ex)
             {
@@ -92,11 +91,10 @@ namespace MongoMvc.Data
         }
 
         public void Add(Discipline item)
-        {
-            var tmp = new Discipline(item);
+        {            
             try
             {
-                _context.Disciplines.InsertOne(tmp);
+                _context.Disciplines.InsertOne(item);
             }
             catch (Exception ex)
             {
