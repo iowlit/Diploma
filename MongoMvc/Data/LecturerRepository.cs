@@ -5,8 +5,6 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoMvc.Interfaces;
 using MongoMvc.Model;
-using MongoDB.Bson;
-using MongoMvc.Data;
 
 namespace MongoMvc.Data
 {
