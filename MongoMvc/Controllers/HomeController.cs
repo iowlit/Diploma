@@ -95,8 +95,13 @@ namespace MongoMvc.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Course(int id)
-        {            
-            return  View(await _DisciplineRepository.GetByCourseAsync(id)) ;
+        {
+            var dcs = await _DisciplineRepository.GetByCourseAsync(id);
+            if (dcs == null)
+            {
+                return new NotFoundResult();
+            }            
+            return View(dcs);
         }
     }
 }

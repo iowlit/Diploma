@@ -172,10 +172,19 @@ namespace MongoMvc.Data
 
         public async Task<IEnumerable<Discipline>> GetByCourseAsync(int CourseId)
         {
+            List<Discipline> dcs;
             var filter = Builders<Discipline>.Filter.Eq("Course", CourseId);
             try
             {
-                return await _context.Disciplines.Find(filter).ToListAsync();
+                dcs = await _context.Disciplines.Find(filter).ToListAsync();
+                if (dcs.Count != 0)
+                {
+                    return dcs;
+                }
+                else
+                {
+                    return null;
+                }                
             }
             catch (Exception ex)
             {

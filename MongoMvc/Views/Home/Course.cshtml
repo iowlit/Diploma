@@ -1,23 +1,11 @@
-﻿@model IEnumerable<MongoMvc.Model.Discipline>
-@using MongoMvc.Model
+﻿@using MongoMvc.Model
+@model IEnumerable<Discipline>
+
 
 <h3>@GetCourse(Model.FirstOrDefault().Course)</h3>
 
-@{
-    var autumn = new List<Discipline>();
-    var spring = new List<Discipline>();
-    int identity = 1;
-    foreach(var tmp in Model)
-    {
-        if (tmp.YearPart == 0)
-        {
-            autumn.Add(tmp);
-        }
-        else
-        {
-            spring.Add(tmp);
-        }
-    }
+@{   
+    int identity = 1;    
 } 
 
 <hr/>
@@ -39,21 +27,24 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in autumn)
+                @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>                            
-                            @identity.
-                            @{ identity++; }
-                        </td>
-                        <td>
-                            @Html.ActionLink(item.Name, "Discipline", new { id = item.Id })
-                        </td>
-                        <td>
-                            @Html.DisplayFor(x => item.ControlType)
-                        </td>                        
-                    </tr>
-                }
+                    if (item.YearPart == YearPart.Autumn)
+                    {
+                        <tr>
+                            <td>
+                                @identity.
+                                @{ identity++; }
+                            </td>
+                            <td>
+                                @Html.ActionLink(item.Name, "Discipline", new { id = item.Id })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.ControlType)
+                            </td>
+                        </tr>
+                     }
+                 }
             </tbody>
         </table>
     </div>
@@ -75,21 +66,24 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in spring)
+                @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @identity.
-                            @{ identity++; }
-                        </td>
-                        <td>
-                            @Html.ActionLink(item.Name, "Discipline", new { id = item.Id })
-                        </td>
-                        <td>
-                            @Html.DisplayFor(x => item.ControlType)
-                        </td>
-                    </tr>
-                }
+                    if (item.YearPart == YearPart.Spring)
+                    {
+                        <tr>
+                            <td>
+                                @identity.
+                                @{ identity++; }
+                            </td>
+                            <td>
+                                @Html.ActionLink(item.Name, "Discipline", new { id = item.Id })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.ControlType)
+                            </td>
+                        </tr>
+                     }
+                 }
             </tbody>
         </table>
     </div>
@@ -99,46 +93,7 @@
 
 
 @*helper not supported by ASP.NET Core*@
-@functions {
-    public string GetControlType(MongoMvc.Model.ControlType ct)
-    {
-        switch (ct)
-        {
-            case MongoMvc.Model.ControlType.Exam:
-                return "Екзамен";
-                break;
-            case MongoMvc.Model.ControlType.Zalik:
-                return "Залік";
-                break;
-            default: return "Невідомо";
-        }
-    }
-    public string GetModuleType(MongoMvc.Model.ModuleType mt)
-    {
-        switch (mt)
-        {
-            case MongoMvc.Model.ModuleType.Required:
-                return "Обов'язковий";
-                break;
-            case MongoMvc.Model.ModuleType.NotRequired:
-                return "Необов'язковий";
-                break;
-            default: return "Невідомо";
-        }
-    }
-    public string GetYearPart(MongoMvc.Model.YearPart yp)
-    {
-        switch (yp)
-        {
-            case MongoMvc.Model.YearPart.Autumn:
-                return "Осінній";
-                break;
-            case MongoMvc.Model.YearPart.Spring:
-                return "Весняний";
-                break;
-            default: return "Невідомо";
-        }
-    }
+@functions {    
     public string GetCourse(int course)
     {
         switch (course)
