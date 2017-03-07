@@ -31,7 +31,7 @@ namespace MongoMvc.Model
         Zalik = 1
     }       
 
-    public class Discipline
+    public class Discipline: IEquatable<Discipline>, IComparable<Discipline>
     {
         public Discipline()
         {
@@ -74,6 +74,34 @@ namespace MongoMvc.Model
 
         [Display(Name = "Семестровий контроль")]
         public ControlType ControlType { get; set; } = ControlType.Exam;        
-        public DateTime UpdatedOn { get; set; } = DateTime.Now.Date;  
+        public DateTime UpdatedOn { get; set; } = DateTime.Now.Date;
+
+        //for remove and sort in list
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            Discipline objAsPart = obj as Discipline;
+            if (objAsPart == null) return false;
+            else return Equals(objAsPart);
+        }
+        public override int GetHashCode()
+        {
+            return Convert.ToInt32(Id);
+        }
+        public bool Equals(Discipline other)
+        {
+            if (other == null) return false;
+            return (this.Id.Equals(other.Id));
+        }
+
+        public static int Compare(Discipline x, Discipline y)
+        {
+            return x.Name.CompareTo(y.Name);
+        }
+
+        public int CompareTo(Discipline other)
+        {
+            return -this.UpdatedOn.CompareTo(other.UpdatedOn);
+        }
     }        
 }

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoMvc.Repository;
 using MongoMvc.Model;
+using System.Collections;
 
 namespace MongoMvc.Data
 {
@@ -18,10 +19,12 @@ namespace MongoMvc.Data
         }
 
         public IEnumerable<Lecturer> GetAll()
-        {
+        {            
             try
             {
-                return _context.Lecturers.Find(_ => true).ToList();
+                var lcs = _context.Lecturers.Find(_ => true).ToList();
+                lcs.Sort();
+                return lcs; 
             }
             catch (Exception ex)
             {
@@ -34,7 +37,9 @@ namespace MongoMvc.Data
         {
             try
             {
-                return await _context.Lecturers.Find(_ => true).ToListAsync();
+                var lcs = await _context.Lecturers.Find(_ => true).ToListAsync();
+                lcs.Sort();
+                return lcs;
             }
             catch (Exception ex)
             {

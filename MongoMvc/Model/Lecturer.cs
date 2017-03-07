@@ -2,11 +2,12 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MongoMvc.Model
 {
-    public class Lecturer: IEquatable<Lecturer>
+    public class Lecturer: IEquatable<Lecturer>, IComparable<Lecturer>
     {
         public Lecturer()
         {
@@ -28,6 +29,8 @@ namespace MongoMvc.Model
             if (objAsPart == null) return false;
             else return Equals(objAsPart);
         }
+
+        //for remove and sort in list
         public override int GetHashCode()
         {
             return Convert.ToInt32(Id);
@@ -36,6 +39,23 @@ namespace MongoMvc.Model
         {
             if (other == null) return false;
             return (this.Id.Equals(other.Id));
+        }
+
+        public static int Compare(Lecturer x, Lecturer y)
+        {
+            return x.Name.CompareTo(y.Name);
+        }
+
+        public int CompareTo(Lecturer other)
+        {
+            if(Name != null && other.Name != null)
+            {
+                return Name.CompareTo(other.Name);
+            }
+            else
+            {
+                return Id.CompareTo(other.Id);
+            }            
         }
     }
 }

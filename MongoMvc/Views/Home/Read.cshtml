@@ -8,10 +8,14 @@
 <h2>@ViewData["Title"]</h2>
 
 <hr/>
+<p>
+    @Html.ActionLink("<- До головної", "index", "Home")
+</p>
+
 @if (true)
 {
 
-    <b>@Html.ActionLink("Створити", "Create", "Home")</b>
+    <b>@Html.ActionLink("Створити нову", "Create", "Home")</b>
 
 }
 <div class="row">

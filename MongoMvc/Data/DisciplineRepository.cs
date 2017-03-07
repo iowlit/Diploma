@@ -21,7 +21,9 @@ namespace MongoMvc.Data
         {
             try
             {
-                return _context.Disciplines.Find(_ => true).ToList();
+                var dcs = _context.Disciplines.Find(_ => true).ToList();
+                dcs.Sort();
+                return dcs;
             }
             catch (Exception ex)
             {
@@ -34,7 +36,9 @@ namespace MongoMvc.Data
         {
             try
             {
-                return await _context.Disciplines.Find(_ => true).ToListAsync();
+                var dcs = await _context.Disciplines.Find(_ => true).ToListAsync();
+                dcs.Sort();
+                return dcs;
             }
             catch (Exception ex)
             {

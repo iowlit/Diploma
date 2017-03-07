@@ -100,7 +100,7 @@ namespace MongoMvc.Controllers
             if (dcs == null)
             {
                 return new NotFoundResult();
-            }            
+            }
             return View(dcs);
         }
     }
