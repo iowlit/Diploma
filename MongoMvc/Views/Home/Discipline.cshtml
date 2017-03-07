@@ -1,57 +1,38 @@
 ﻿@{
-    ViewData["Title"] = "Усі дисципліни";
+    ViewData["Title"] = Model.Name;
 }
-@model IEnumerable<MongoMvc.Model.Discipline>
+
+@model MongoMvc.Model.Discipline
 
 
-<h2>@ViewData["Title"]</h2>
-<style>
-    .ablack a{
-        color: #333333;
-    }
-</style>
 <hr/>
 <p>
-    @Html.ActionLink("<- До головної", "index", "Home")
+    @Html.ActionLink("<- Назад", "Course", new { id = Model.Course })
 </p>
-
-@if (true)
-{
-
-    <b>@Html.ActionLink("Створити нову", "Create", "Home")</b>
-
-}
-<div class="row">
-    @foreach (var item in Model)
-    {        
-        <div class="col-md-6 myBorders">  
-            <h3 class="text-center ablack">@Html.ActionLink(@item.Name, "Discipline", new { id=@item.Id })</h3>          
+<div class="row">           
+        <div class="col-md-12 myBorders">  
+            <h3>@Model.Name</h3>          
             <ul>
-                <li><b>Курс/Спеціалізація:</b> @GetCourse(item.Course)</li>
-                <li><b>Семестр:</b> @GetYearPart(item.YearPart)</li>
-                <li><b>Тип модуля:</b> @GetModuleType(item.ModuleType)</li>
-                <li><b>Обсяг модуля:</b> @item.ModuleDescr</li>
+                <li><b>Курс/Спеціалізація:</b> @GetCourse(Model.Course)</li>
+                <li><b>Семестр:</b> @GetYearPart(Model.YearPart)</li>
+                <li><b>Тип модуля:</b> @GetModuleType(Model.ModuleType)</li>
+                <li><b>Обсяг модуля:</b> @Model.ModuleDescr</li>
                 <li>
                     <b>Лектори:</b> <ul>
-                        @foreach (var lc in item.Lectors)
+                        @foreach (var lc in Model.Lectors)
                         {
                             <li>@lc.Name &nbsp @lc.Descr</li>
                         }
                     </ul>
                 </li>
-                <li><b>Семестровий контроль:</b> @GetControlType(item.ControlType)</li>
-                <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(item.Books)</ol></li>
-                <li><b>Методичні вказівки:</b> <ol>@Html.Raw(item.Instructions)</ol></li>
-                <li><b>НМЕК:</b> <ol>@Html.Raw(item.HMEK)</ol></li>
-                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>
+                <li><b>Семестровий контроль:</b> @GetControlType(Model.ControlType)</li>
+                <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(Model.Books)</ol></li>
+                <li><b>Методичні вказівки:</b> <ol>@Html.Raw(Model.Instructions)</ol></li>
+                <li><b>НМЕК:</b> <ol>@Html.Raw(Model.HMEK)</ol></li>
+                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(Model.VNS)</ol></li>
             </ul>            
-            <div class="pull-left"><sub>@item.UpdatedOn.ToString("d")</sub></div>
-            <div class="pull-right">
-                | @Html.ActionLink("Редагувати", "Edit", "Home", new { id = item.Id }) |
-                @Html.ActionLink("Видалити", "Delete", "Home", new { id = item.Id }) |
-            </div>            
-        </div>        
-    }
+            <sub>@Model.UpdatedOn.ToString("d")</sub>                   
+        </div>  
 </div>
 
 @*helper not supported by ASP.NET Core*@

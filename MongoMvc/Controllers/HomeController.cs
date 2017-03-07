@@ -103,5 +103,16 @@ namespace MongoMvc.Controllers
             }
             return View(dcs);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Discipline(string id)
+        {
+            var dcs = await _DisciplineRepository.GetByIdAsync(id);
+            if (dcs == null)
+            {
+                return new NotFoundResult();
+            }
+            return View(dcs);
+        }
     }
 }
