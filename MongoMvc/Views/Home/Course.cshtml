@@ -2,6 +2,7 @@
 @model IEnumerable<Discipline>
 
 
+<h4><i>Спеціальність: @GetSpecialty(Model.FirstOrDefault().Course)</i></h4>
 <h3>@GetCourse(Model.FirstOrDefault().Course)</h3>
 
 @{   
@@ -93,7 +94,7 @@
 
 
 @*helper not supported by ASP.NET Core*@
-@functions {    
+@functions {
     public string GetCourse(int course)
     {
         switch (course)
@@ -123,6 +124,17 @@
                 return "Комп'ютерні науки та інформаційні технології";
 
             default: return "Невідомо";
+        }
+    }
+    public string GetSpecialty(int course)
+    {
+        switch (course)
+        {
+            case 8:
+                return "122 \"Комп'ютерні науки та інформаційні технології\"";
+
+            default:
+                return "113 \"Прикладна математика\"";
         }
     }
 }
