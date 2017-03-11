@@ -42,6 +42,7 @@ namespace MongoMvc.Model
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public String Id { get; set; }
 
+        [Required(ErrorMessage = "Поле назви є обов'язковим")]
         [Display(Name = "Назва")]
         public String Name { get; set; } = string.Empty;
 
