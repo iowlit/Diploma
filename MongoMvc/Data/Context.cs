@@ -30,5 +30,13 @@ namespace MongoMvc.Data
                 return _database.GetCollection<Lecturer>("Lector");
             }
         }
+
+        public IMongoCollection<User> Users
+        {
+            get
+            {
+                return _database.GetCollection<User>("User");
+            }
+        }
     }
 }

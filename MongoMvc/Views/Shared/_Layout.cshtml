@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Authorization
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -47,28 +48,25 @@
                         </ul>
                     </li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Read"> Усі дисципліни </a></li>
-                    <li><a asp-area="" asp-controller="Lecturer" asp-action="Read"> Викладачі </a></li>                    
-                </ul>
-                @if (true)
-                {
-                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        @Html.AntiForgeryToken()
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                @*@Html.ActionLink(@*User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
-                            </li>                            
-                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Вийти</a></li>
-                        </ul>
+                        <li><a asp-area="" asp-controller="Lecturer" asp-action="Read"> Викладачі </a></li> 
                     }
-                }
-                else
-                {
-                    <ul class="nav navbar-nav navbar-right">                        
-                        <li>@Html.ActionLink("Увійти", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-                    </ul>
-                }
+                                        
+                </ul>
+               
+                     @Html.AntiForgeryToken()
+                        <ul class="nav navbar-nav navbar-right">
+                            @if(User.Identity.IsAuthenticated){
+                                <li>@Html.ActionLink("Вийти", "LogOut", "Account")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Увійти", "Login", "Account")</li>
+                            }
+                        </ul>                    
+                
+                
             </div>
         </div>
     </div>

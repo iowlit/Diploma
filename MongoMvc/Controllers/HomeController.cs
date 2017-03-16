@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using MongoMvc.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MongoMvc.Repository;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc.Formatters.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MongoMvc.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IDisciplineRepository _DisciplineRepository;
@@ -20,11 +19,13 @@ namespace MongoMvc.Controllers
             _LecturerRepository = LecturerRepository;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Read()
         {            
             return View(await _DisciplineRepository.GetAllAsync());
@@ -93,6 +94,7 @@ namespace MongoMvc.Controllers
             return RedirectToAction("Read");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Course(int id)
         {
@@ -104,6 +106,7 @@ namespace MongoMvc.Controllers
             return View(dcs);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Discipline(string id)
         {
@@ -112,6 +115,7 @@ namespace MongoMvc.Controllers
             {
                 return new NotFoundResult();
             }
+            
             return View(dcs);
         }
     }

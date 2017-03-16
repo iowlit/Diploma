@@ -15,11 +15,9 @@
     @Html.ActionLink("<- До головної", "index", "Home")
 </p>
 
-@if (true)
+@if (User.Identity.IsAuthenticated)
 {
-
     <b>@Html.ActionLink("Створити нову", "Create", "Home")</b>
-
 }
 <div class="row">
     @foreach (var item in Model)
@@ -46,10 +44,13 @@
                 <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>
             </ul>            
             <div class="pull-left"><sub>@item.UpdatedOn.ToString("d")</sub></div>
-            <div class="pull-right">
-                | @Html.ActionLink("Редагувати", "Edit", "Home", new { id = item.Id }) |
-                @Html.ActionLink("Видалити", "Delete", "Home", new { id = item.Id }) |
-            </div>            
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="pull-right">
+                    | @Html.ActionLink("Редагувати", "Edit", "Home", new { id = item.Id }) |
+                    @Html.ActionLink("Видалити", "Delete", "Home", new { id = item.Id }) |
+                </div>
+            }                       
         </div>        
     }
 </div>

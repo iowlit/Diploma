@@ -7,7 +7,10 @@
 
 <hr/>
 <p>
-    @Html.ActionLink("<- Назад", "Course", new { id = Model.Course })
+    @Html.ActionLink("<- Повернутись до усіх дисциплін", "Read")    
+</p>
+<p>
+    @Html.ActionLink("Перейти до цього курсу", "Course", new { id = Model.Course })
 </p>
 <div class="row">           
         <div class="col-md-12 myBorders">  

@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoMvc.Repository;
 using MongoMvc.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MongoMvc.Controllers
 {
+    [Authorize]
     public class LecturerController : Controller
     {        
         private readonly ILecturerRepository _LecturerRepository;
