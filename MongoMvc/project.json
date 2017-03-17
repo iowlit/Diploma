@@ -1,6 +1,5 @@
 {
-  "dependencies": {
-    "AspNetCore.Identity.MongoDB": "1.0.0-rc3",
+  "dependencies": {    
     "BundlerMinifier.Core": "2.4.337",
     "Microsoft.AspNetCore.Diagnostics": "1.1.0",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.1.1",    

@@ -6,6 +6,8 @@ using MongoDB.Driver;
 using MongoMvc.Repository;
 using MongoMvc.Model;
 using System.Collections;
+using System.Security.Cryptography;
+using System.Linq;
 
 namespace MongoMvc.Data
 {
@@ -76,19 +78,26 @@ namespace MongoMvc.Data
 
         public async Task<User> GetUserAsync(string Email, string Password)
         {
-            var filter = Builders<User>.Filter.Where(u => u.Email == Email && u.Password == Password);
-
-            try
+            var us = await GetUserAsync(Email);
+            var salt = us.Salt;
+            var hash = us.Hash;
+            using (var deriveBytes = new Rfc2898DeriveBytes(Password, salt))
             {
-                return await _context.Users
-                                .Find(filter)
-                                .FirstOrDefaultAsync();
-            }
-            catch (Exception ex)
-            {
-                // log or manage the exception
-                throw ex;
-            }
+                byte[] newKey = deriveBytes.GetBytes(20);  // derive a 20-byte key
+                var filter = Builders<User>.Filter.Where(u => u.Email == Email && newKey.SequenceEqual(hash));
+                try
+                {
+                    return await _context.Users
+                                    .Find(filter)
+                                    .FirstOrDefaultAsync();
+                }
+                catch (Exception ex)
+                {
+                    // log or manage the exception
+                    throw ex;
+                }
+            }            
+            
         }
 
         public async Task<User> GetUserAsync(string Email)
