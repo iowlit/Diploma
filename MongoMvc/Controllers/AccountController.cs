@@ -22,7 +22,7 @@ namespace MongoMvc.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(User model)
+        public async Task<IActionResult> Login(UserView model)
         {
             if (ModelState.IsValid)
             {
@@ -44,14 +44,14 @@ namespace MongoMvc.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(User model)
+        public async Task<IActionResult> Register(UserView model)
         {
             if (ModelState.IsValid)
             {
                 User user = await _UserRepository.GetUserAsync(model.Email);
                 if (user == null)
                 {                    
-                    await _UserRepository.AddAsync(new User { Email = model.Email, Password = model.Password });                    
+                    await _UserRepository.AddAsync(new User(new UserView { Email = model.Email, Password = model.Password }));                    
 
                     await Authenticate(model.Email); 
 
