@@ -17,11 +17,7 @@ namespace MongoMvc.Controllers
             _LecturerRepository = LecturerRepository;
             _DisciplineRepository = DisciplineRepository;
         }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
+               
 
         public async Task<IActionResult> Read()
         {          

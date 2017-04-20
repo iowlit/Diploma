@@ -19,7 +19,7 @@ namespace MongoMvc.Model
     {
         [Display(Name = "Обов'язковий")]
         Required = 0,
-        [Display(Name = "Необов'язковий")]
+        [Display(Name = "Вибірковий")]
         NotRequired = 1
     }
 

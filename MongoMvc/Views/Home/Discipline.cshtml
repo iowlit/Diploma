@@ -24,13 +24,13 @@
                     <b>Лектори:</b> <ul>
                         @foreach (var lc in Model.Lectors)
                         {
-                            <li>@lc.Name &nbsp @lc.Descr</li>
+                            <li>@lc.Name - @lc.Descr</li>
                         }
                     </ul>
                 </li>
                 <li><b>Семестровий контроль:</b> @GetControlType(Model.ControlType)</li>
                 <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(Model.Books)</ol></li>
-                <li><b>Методичні вказівки:</b> <ol>@Html.Raw(Model.Instructions)</ol></li>
+                <li><b>Методичні вказівки</b> <i>(ауд. 226а, &#8547 н.к.):</i> <ol>@Html.Raw(Model.Instructions)</ol></li>
                 <li><b>НМЕК:</b> <ol>@Html.Raw(Model.HMEK)</ol></li>
                 <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(Model.VNS)</ol></li>
             </ul>            
@@ -61,7 +61,7 @@
                 return "Обов'язковий";
                 break;
             case MongoMvc.Model.ModuleType.NotRequired:
-                return "Необов'язковий";
+                return "Вибірковий";
                 break;
             default: return "Невідомо";
         }
