@@ -4,6 +4,7 @@ using MongoMvc.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MongoMvc.Repository;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace MongoMvc.Controllers
 {
@@ -26,9 +27,18 @@ namespace MongoMvc.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Read()
-        {            
-            return View(await _DisciplineRepository.GetAllAsync());
+        public async Task<IActionResult> Read(int? page)
+        {
+            var dummyItems = await _DisciplineRepository.GetAllAsync();
+            var pager = new Pager(dummyItems.Count(), page);
+
+            var viewModel = new DisciplinePagination
+            {
+                Disciplines = dummyItems.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize),
+                Pager = pager
+            };
+
+            return View(viewModel);            
         }        
 
         [HttpGet]
