@@ -5,20 +5,20 @@
 
 <h2>@ViewBag.Title</h2>
 
-<form asp-controller="Home" asp-action="Create" method="post" class="form-horizontal" role="form">
+<form asp-controller="Home" asp-action="Create" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
     <div class="form-horizontal">
         <div asp-validation-summary="All" class="text-danger"></div>        
         <input asp-for="Id" type="hidden" />
         <div class="form-group">
             <label asp-for="Name" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <textarea asp-for="Name" class="form-control" placeholder="Write here..."></textarea>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>        
         <div class="form-group">
             <label asp-for="Course" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <select asp-for="Course" class="form-control">
                     <option selected="selected" value="1">1</option>
                     <option value="2">2</option>
@@ -34,69 +34,75 @@
         </div>
         <div class="form-group">
             <label asp-for="YearPart" class="col-md-2 control-label"></label>
-            <div class="col-md-10">    
+            <div class="col-lg-10">    
                 <select asp-for="YearPart" asp-items="Html.GetEnumSelectList<YearPart>()" class="form-control"></select>
                 <span asp-validation-for="YearPart" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="ModuleType" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <select asp-for="ModuleType" asp-items="Html.GetEnumSelectList<ModuleType>()" class="form-control"></select>
                 <span asp-validation-for="ModuleType" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="ModuleDescr" class="col-md-2 control-label"></label>
-            <div class="col-md-10">                
+            <div class="col-lg-10">                
                 <textarea asp-for="ModuleDescr" class="form-control" placeholder="Write here..."></textarea>
                 <span asp-validation-for="ModuleDescr" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Lectors" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 @Html.ListBox("Id", (MultiSelectList)ViewBag.Lectures, new { @class="form-control" })
                 <span asp-validation-for="Lectors" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="ControlType" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <select asp-for="ControlType" asp-items="Html.GetEnumSelectList<ControlType>()" class="form-control"></select>
                 <span asp-validation-for="ControlType" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Books" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <textarea asp-for="Books" class="form-control" placeholder="Replace numbers with <li> tag and ends of items close with </li> tag"></textarea>
                 <span asp-validation-for="Books" class="text-danger"></span>
             </div>
         </div> 
         <div class="form-group">
             <label asp-for="Instructions" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <textarea asp-for="Instructions" class="form-control" placeholder="Replace numbers with <li> tag and ends of items close with </li> tag"></textarea>
                 <span asp-validation-for="Instructions" class="text-danger"></span>
             </div>
         </div>   
         <div class="form-group">
             <label asp-for="HMEK" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <textarea asp-for="HMEK" class="form-control" placeholder="Replace numbers with <li> tag and ends of items close with </li> tag"></textarea>
                 <span asp-validation-for="HMEK" class="text-danger"></span>
             </div>
         </div>  
         <div class="form-group">
             <label asp-for="VNS" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <textarea asp-for="VNS" class="form-control" placeholder="Replace numbers with <li> tag and ends of items close with </li> tag"></textarea>
                 <span asp-validation-for="VNS" class="text-danger"></span>
             </div>
+        </div>  
+        <div class="form-group">
+            <label class="col-md-2 control-label">Робоча програма:</label>
+            <div class="col-lg-10">
+                <input type="file" name="files" multiple/>
+            </div>
         </div>    
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-lg-10">
                 <input type="submit" value="Створити" class="btn btn-default" />
             </div>
         </div>

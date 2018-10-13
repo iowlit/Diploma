@@ -29,16 +29,16 @@ namespace MongoMvc.Model
         Exam = 0,
         [Display(Name = "Залік")]
         Zalik = 1
-    }       
+    }
 
-    public class Discipline: IEquatable<Discipline>, IComparable<Discipline>
+    public class Discipline : IEquatable<Discipline>, IComparable<Discipline>
     {
         public Discipline()
         {
             Lectors = new List<Lecturer>();
             Id = ObjectId.GenerateNewId().ToString();
-        }        
-                
+        }
+
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         public String Id { get; set; }
 
@@ -74,9 +74,10 @@ namespace MongoMvc.Model
         public String VNS { get; set; } = string.Empty;
 
         [Display(Name = "Семестровий контроль")]
-        public ControlType ControlType { get; set; } = ControlType.Exam;        
+        public ControlType ControlType { get; set; } = ControlType.Exam;
         public DateTime UpdatedOn { get; set; } = DateTime.Now.Date;
-
+        public List<MongoFile> files { get; set; } = new List<MongoFile>();
+            
         //for remove and sort in list
         public override bool Equals(object obj)
         {

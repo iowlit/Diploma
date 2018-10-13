@@ -6,11 +6,11 @@
 
 <h2>@ViewData["Title"]</h2>
 <style>
-    .ablack a{
+    .ablack a {
         color: #333333;
     }
 </style>
-<hr/>
+<hr />
 <p>
     @Html.ActionLink("<- До головної", "index", "Home")
 </p>
@@ -22,8 +22,8 @@
 <div class="row">
     @foreach (var item in Model.Disciplines)
     {
-        <div class="col-md-6 myBorders">  
-            <h3 class="text-center ablack">@Html.ActionLink(@item.Name, "Discipline", new { id=@item.Id })</h3>          
+        <div class="col-md-6 myBorders">
+            <h3 class="text-center ablack">@Html.ActionLink(@item.Name, "Discipline", new { id = @item.Id })</h3>
             <ul>
                 <li><b>Курс/Спеціалізація:</b> @GetCourse(item.Course)</li>
                 <li><b>Семестр:</b> @GetYearPart(item.YearPart)</li>
@@ -41,8 +41,22 @@
                 <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(item.Books)</ol></li>
                 <li><b>Методичні вказівки</b> <i>(ауд. 226а, &#8547 н.к.):</i> <ol>@Html.Raw(item.Instructions)</ol></li>
                 <li><b>НМЕК:</b> <ol>@Html.Raw(item.HMEK)</ol></li>
-                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>
-            </ul>            
+                <li>
+                    <b>ВНС кафедри, мережевий диск:</b> 
+                    <ol>
+                        <ul>
+                            @foreach (var file in item.files)
+                            {
+                                <li>
+                                    <a href="~/uploads/workschedule/@file.FilePath">
+                                        @file.Name
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </ol>
+                </li>
+            </ul>
             <div class="pull-left"><sub>@item.UpdatedOn.ToString("d")</sub></div>
             @if (User.Identity.IsAuthenticated)
             {
@@ -50,9 +64,9 @@
                     | @Html.ActionLink("Редагувати", "Edit", "Home", new { id = item.Id }) |
                     @Html.ActionLink("Видалити", "Delete", "Home", new { id = item.Id }) |
                 </div>
-            }                                              
-        </div>        
-    }        
+            }
+        </div>
+    }
 </div>
 <div class="row text-center">
     <!-- pager -->
@@ -88,10 +102,10 @@
         </ul>
     }
 </div>
-   
 
-    @*helper not supported by ASP.NET Core*@
-    @functions {
+
+@*helper not supported by ASP.NET Core*@
+@functions {
         public string GetControlType(MongoMvc.Model.ControlType ct)
         {
             switch (ct)
@@ -162,4 +176,4 @@
                 default: return "Невідомо";
             }
         }
-    }
+}

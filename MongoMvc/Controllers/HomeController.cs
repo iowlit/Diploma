@@ -1,10 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoMvc.Model;
+using MongoMvc.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MongoMvc.Repository;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MongoMvc.Controllers
 {
@@ -13,9 +19,11 @@ namespace MongoMvc.Controllers
     {
         private readonly IDisciplineRepository _DisciplineRepository;
         private readonly ILecturerRepository _LecturerRepository;
+        private readonly IStorageService _StorageService;
 
-        public HomeController(IDisciplineRepository DisciplineRepository, ILecturerRepository LecturerRepository)
+        public HomeController(IDisciplineRepository DisciplineRepository, ILecturerRepository LecturerRepository, IHostingEnvironment AppEnvironment)
         {
+            _StorageService = new LocalFileStorageService(AppEnvironment);
             _DisciplineRepository = DisciplineRepository;
             _LecturerRepository = LecturerRepository;
         }
@@ -49,9 +57,19 @@ namespace MongoMvc.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Discipline disc, string[] Id)
+        public async Task<IActionResult> Create(Discipline disc, string[] Ids, List<IFormFile> files)
         {
-            disc.Lectors = _LecturerRepository.GetLectorsByArray(Id);                                             
+            if (files.Count != 0)
+            {
+                foreach (IFormFile file in files)
+                {
+                    var id = GetUniqueFileName(file.FileName);
+                    var mongoFile = new MongoFile(id, file.FileName);
+                    disc.files.Add(mongoFile);
+                    await _StorageService.UploadAsync("workschedule", file, id);     
+                }
+            }
+            disc.Lectors = _LecturerRepository.GetLectorsByArray(Ids);                                          
             await _DisciplineRepository.AddAsync(disc);
             ViewBag.Lectures = null;
             return RedirectToAction("Read");
@@ -127,6 +145,14 @@ namespace MongoMvc.Controllers
             }
             
             return View(dcs);
+        }
+
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString();
         }
     }
 }
