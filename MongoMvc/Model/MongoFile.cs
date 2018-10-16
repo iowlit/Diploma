@@ -24,6 +24,13 @@ namespace MongoMvc.Model
                 return Path.GetExtension(Name);
             }
         }
+        public String NameWithoutExtension
+        {
+            get
+            {
+                return Path.GetFileNameWithoutExtension(Name);
+            }
+        }
 
 
         public MongoFile(String ID, String Name)

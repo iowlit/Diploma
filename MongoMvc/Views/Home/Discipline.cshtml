@@ -5,38 +5,51 @@
 @model MongoMvc.Model.Discipline
 
 
-<hr/>
+<hr />
 <p>
-    @Html.ActionLink("<- Повернутись до усіх дисциплін", "Read")    
+    @Html.ActionLink("<- Повернутись до усіх дисциплін", "Read")
 </p>
 <p>
     @Html.ActionLink("Перейти до цього курсу", "Course", new { id = Model.Course })
 </p>
-<div class="row">           
-        <div class="col-md-12 myBorders">  
-            <h3>@Model.Name</h3>          
-            <ul>
-                <li><b>Курс/Спеціалізація:</b> @GetCourse(Model.Course)</li>
-                <li><b>Семестр:</b> @GetYearPart(Model.YearPart)</li>
-                <li><b>Тип модуля:</b> @GetModuleType(Model.ModuleType)</li>
-                <li><b>Обсяг модуля:</b> @Model.ModuleDescr</li>
-                <li>
-                    <b>Лектори:</b> <ul>
-                        @foreach (var lc in Model.Lectors)
+<div class="row">
+    <div class="col-md-12 myBorders">
+        <h3>@Model.Name</h3>
+        <ul>
+            <li><b>Курс/Спеціалізація:</b> @GetCourse(Model.Course)</li>
+            <li><b>Семестр:</b> @GetYearPart(Model.YearPart)</li>
+            <li><b>Тип модуля:</b> @GetModuleType(Model.ModuleType)</li>
+            <li><b>Обсяг модуля:</b> @Model.ModuleDescr</li>
+            <li>
+                <b>Лектори:</b> <ul>
+                    @foreach (var lc in Model.Lectors)
+                    {
+                        <li>@lc.Name - @lc.Descr</li>
+                    }
+                </ul>
+            </li>
+            <li><b>Семестровий контроль:</b> @GetControlType(Model.ControlType)</li>
+            <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(Model.Books)</ol></li>
+            <li><b>Методичні вказівки</b> <i>(ауд. 226а, &#8547 н.к.):</i> <ol>@Html.Raw(Model.Instructions)</ol></li>
+            <li><b>НМЕК:</b> <ol>@Html.Raw(Model.HMEK)</ol></li>
+            <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(Model.VNS)</ol></li>
+            <li>
+                <b>Робоча програма:</b>
+                <ol>
+                    <ul>
+                        @foreach (var file in Model.files)
                         {
-                            <li>@lc.Name - @lc.Descr</li>
+                            <a class="document-item" href="~/uploads/workschedule/@file.FilePath" filetype="@file.Extension.TrimStart('.')" target="_blank">
+                                <span class="fileCorner"></span>
+                                @file.NameWithoutExtension
+                            </a>
                         }
                     </ul>
-                </li>
-                <li><b>Семестровий контроль:</b> @GetControlType(Model.ControlType)</li>
-                <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(Model.Books)</ol></li>
-                <li><b>Методичні вказівки</b> <i>(ауд. 226а, &#8547 н.к.):</i> <ol>@Html.Raw(Model.Instructions)</ol></li>
-                <li><b>НМЕК:</b> <ol>@Html.Raw(Model.HMEK)</ol></li>
-                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(Model.VNS)</ol></li>
-                <li><b>Робоча програма:</b> <ol></ol></li>
-            </ul>
-            <sub>@Model.UpdatedOn.ToString("d")</sub>                   
-        </div>  
+                </ol>
+            </li>
+        </ul>
+        <sub>@Model.UpdatedOn.ToString("d")</sub>
+    </div>
 </div>
 
 @*helper not supported by ASP.NET Core*@

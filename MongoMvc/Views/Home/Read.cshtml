@@ -41,21 +41,7 @@
                 <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(item.Books)</ol></li>
                 <li><b>Методичні вказівки</b> <i>(ауд. 226а, &#8547 н.к.):</i> <ol>@Html.Raw(item.Instructions)</ol></li>
                 <li><b>НМЕК:</b> <ol>@Html.Raw(item.HMEK)</ol></li>
-                <li>
-                    <b>ВНС кафедри, мережевий диск:</b> 
-                    <ol>
-                        <ul>
-                            @foreach (var file in item.files)
-                            {
-                                <li>
-                                    <a href="~/uploads/workschedule/@file.FilePath">
-                                        @file.Name
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </ol>
-                </li>
+                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>                
             </ul>
             <div class="pull-left"><sub>@item.UpdatedOn.ToString("d")</sub></div>
             @if (User.Identity.IsAuthenticated)

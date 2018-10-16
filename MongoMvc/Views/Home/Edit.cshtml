@@ -96,10 +96,26 @@
             </div>
         </div>    
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Оновити" class="btn btn-default" />
+            <label class="col-md-2 control-label">Робоча програма:</label>
+            <div class="col-lg-10">
+                <input type="file" name="files" multiple />
             </div>
-        </div>
+        </div>    
+        <li>
+            <b>Робоча програма:</b>
+            <ol>
+                <ul>
+                    @foreach (var file in Model.files)
+                    {
+                        <a class="document-item" href="~/uploads/workschedule/@file.FilePath" filetype="@file.Extension.TrimStart('.')" target="_blank">
+                            <span class="fileCorner"></span>
+                            @file.NameWithoutExtension
+                        </a>
+                    }
+                </ul>
+            </ol>
+        </li>
+
     </div>
 </form>
 
