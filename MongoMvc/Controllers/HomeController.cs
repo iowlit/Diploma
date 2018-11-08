@@ -38,7 +38,7 @@ namespace MongoMvc.Controllers
         public async Task<IActionResult> Read(int? page)
         {
             var dummyItems = await _DisciplineRepository.GetAllAsync();
-            var pager = new Pager(dummyItems.Count(), page);
+            var pager = new Pager(dummyItems.Count(), page, 8);
 
             var viewModel = new DisciplinePagination
             {
@@ -57,18 +57,18 @@ namespace MongoMvc.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Discipline disc, string[] Ids, List<IFormFile> files)
+        public async Task<IActionResult> Create(Discipline disc, string[] Ids)
         {
-            if (files.Count != 0)
-            {
-                foreach (IFormFile file in files)
-                {
-                    var id = GetUniqueFileName(file.FileName);
-                    var mongoFile = new MongoFile(id, file.FileName);
-                    disc.files.Add(mongoFile);
-                    await _StorageService.UploadAsync("workschedule", file, id);     
-                }
-            }
+            //if (files.Count != 0)
+            //{
+            //    foreach (IFormFile file in files)
+            //    {
+            //        var id = GetUniqueFileName(file.FileName);
+            //        var mongoFile = new MongoFile(id, file.FileName);
+            //        disc.files.Add(mongoFile);
+            //        await _StorageService.UploadAsync("workschedule", file, id);     
+            //    }
+            //}
             disc.Lectors = _LecturerRepository.GetLectorsByArray(Ids);                                          
             await _DisciplineRepository.AddAsync(disc);
             ViewBag.Lectures = null;
@@ -145,14 +145,6 @@ namespace MongoMvc.Controllers
             }
             
             return View(dcs);
-        }
-
-        private string GetUniqueFileName(string fileName)
-        {
-            fileName = Path.GetFileName(fileName);
-            return Path.GetFileNameWithoutExtension(fileName)
-                      + "_"
-                      + Guid.NewGuid().ToString();
-        }
+        }       
     }
 }

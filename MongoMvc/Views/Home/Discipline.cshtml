@@ -18,8 +18,7 @@
         <ul>
             <li><b>Курс/Спеціалізація:</b> @GetCourse(Model.Course)</li>
             <li><b>Семестр:</b> @GetYearPart(Model.YearPart)</li>
-            <li><b>Тип модуля:</b> @GetModuleType(Model.ModuleType)</li>
-            <li><b>Обсяг модуля:</b> @Model.ModuleDescr</li>
+            <li><b>Тип модуля:</b> @GetModuleType(Model.ModuleType)</li>            
             <li>
                 <b>Лектори:</b> <ul>
                     @foreach (var lc in Model.Lectors)
@@ -30,18 +29,18 @@
             </li>
             <li><b>Семестровий контроль:</b> @GetControlType(Model.ControlType)</li>
             <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(Model.Books)</ol></li>
-            <li><b>Методичні вказівки</b> <i>(ауд. 226а, &#8547 н.к.):</i> <ol>@Html.Raw(Model.Instructions)</ol></li>
+            <li><b>Методичні вказівки</b> <i>(ауд. 226а, &#8547 н.к.):</i> <ol>@*@Html.Raw(Model.Instructions)*@</ol></li>
             <li><b>НМЕК:</b> <ol>@Html.Raw(Model.HMEK)</ol></li>
             <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(Model.VNS)</ol></li>
             <li>
                 <b>Робоча програма:</b>
                 <ol>
                     <ul>
-                        @foreach (var file in Model.files)
+                        @foreach (var file in Model.ProgramFiles)
                         {
-                            <a class="document-item" href="~/uploads/workschedule/@file.FilePath" filetype="@file.Extension.TrimStart('.')" target="_blank">
+                            <a class="document-item" href="~/uploads/workschedule/@file" filetype="" target="_blank">
                                 <span class="fileCorner"></span>
-                                @file.NameWithoutExtension
+                                @file
                             </a>
                         }
                     </ul>

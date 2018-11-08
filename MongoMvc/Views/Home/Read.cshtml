@@ -22,26 +22,25 @@
 <div class="row">
     @foreach (var item in Model.Disciplines)
     {
-        <div class="col-md-6 myBorders">
-            <h3 class="text-center ablack">@Html.ActionLink(@item.Name, "Discipline", new { id = @item.Id })</h3>
+        <div class="col-md-12 myBorders">
+            <h3 class="ablack">@Html.ActionLink(@item.Name, "Discipline", new { id = @item.Id })</h3>
             <ul>
                 <li><b>Курс/Спеціалізація:</b> @GetCourse(item.Course)</li>
                 <li><b>Семестр:</b> @GetYearPart(item.YearPart)</li>
                 <li><b>Тип модуля:</b> @GetModuleType(item.ModuleType)</li>
                 <li><b>Обсяг модуля:</b> @item.ModuleDescr</li>
-                <li>
-                    <b>Лектори:</b> <ul>
-                        @foreach (var lc in item.Lectors)
-                        {
-                            <li>@lc.Name - @lc.Descr</li>
-                        }
+                @if (item.Lectors.Count > 0)
+                {
+                    <li>
+                    <b> Лектори:</b><ul>
+                    @foreach (var lc in item.Lectors)
+                    {
+                        <li> @lc.Name - @lc.Descr </li>
+                    }
                     </ul>
-                </li>
+                    </li>
+                }
                 <li><b>Семестровий контроль:</b> @GetControlType(item.ControlType)</li>
-                <li><b>Посібники, підручники, тексти лекцій:</b> <ol>@Html.Raw(item.Books)</ol></li>
-                <li><b>Методичні вказівки</b> <i>(ауд. 226а, &#8547 н.к.):</i> <ol>@Html.Raw(item.Instructions)</ol></li>
-                <li><b>НМЕК:</b> <ol>@Html.Raw(item.HMEK)</ol></li>
-                <li><b>ВНС кафедри, мережевий диск:</b> <ol>@Html.Raw(item.VNS)</ol></li>                
             </ul>
             <div class="pull-left"><sub>@item.UpdatedOn.ToString("d")</sub></div>
             @if (User.Identity.IsAuthenticated)

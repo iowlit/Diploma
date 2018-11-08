@@ -50,7 +50,15 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Read"> Усі дисципліни </a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-area="" asp-controller="Lecturer" asp-action="Read"> Викладачі </a></li> 
+                        <li><a asp-area="" asp-controller="Lecturer" asp-action="Read"> Викладачі </a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Документи<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Files" asp-action="Instructions"> Методичні вказівки </a></li>
+                                <li><a asp-area="" asp-controller="Files" asp-action="WorkSchedules"> Розклад </a></li>
+                            </ul>
+                        </li>
+                        
                     }
                                         
                 </ul>
@@ -74,7 +82,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - Методичне забезпечення дисциплін кафедри "Прикладна математика"</p>
+            <p>&copy; 2018 - Методичне забезпечення дисциплін кафедри "Прикладна математика"</p>
         </footer>
     </div>
 

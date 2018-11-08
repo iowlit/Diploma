@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,25 +11,47 @@ namespace MongoMvc.Data
 {
     public interface IStorageService
     {
-        Task<string> UploadAsync(string path, IFormFile content, string nameWithoutExtension = null);
+        Task<string> UploadAsync(string path, IFormFile content);
+        List<IFileInfo> GetAllFiles(string path);
+        void DeleteFile(string path);
     }
 
     public class LocalFileStorageService : IStorageService
     {
         private readonly IHostingEnvironment _env;
+        private readonly IFileProvider _fileProvider;
 
         public LocalFileStorageService(IHostingEnvironment env)
         {
             _env = env;
+            _fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
         }
 
-        public async Task<string> UploadAsync(string path, IFormFile content, string nameWithoutExtension = null)
+        public void DeleteFile(string path)
+        {
+            
+        }
+
+        public List<IFileInfo> GetAllFiles(string path)
+        {
+            IDirectoryContents contents = _fileProvider.GetDirectoryContents(Path.Combine("wwwroot", "uploads", path));
+
+            var lastModified =
+                      contents
+                      .OrderByDescending(f => f.LastModified)
+                      .ToList();
+
+            return lastModified;
+        }                
+
+        public async Task<string> UploadAsync(string path, IFormFile content)
         {
             if (content != null && content.Length > 0)
             {
+                string id = GetUniqueFileName(content.FileName);
                 string extension = Path.GetExtension(content.FileName);
                 
-                string fileName = $"{ nameWithoutExtension ?? Guid.NewGuid().ToString() }{ extension }";
+                string fileName = $"{ id ?? Guid.NewGuid().ToString() }{ extension }";
                 
                 path = Path.Combine(_env.WebRootPath, "uploads", path).ToLower();
                 
@@ -54,6 +77,14 @@ namespace MongoMvc.Data
             }
 
             return String.Empty;
+        }
+
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString();
         }
     }
 }

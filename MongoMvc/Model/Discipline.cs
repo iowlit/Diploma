@@ -65,6 +65,8 @@ namespace MongoMvc.Model
         public String Books { get; set; } = string.Empty;
 
         [Display(Name = "Методичні вказівки")]
+        public List<String> InstructionFiles { get; set; } = new List<String>();
+
         public String Instructions { get; set; } = string.Empty;
 
         [Display(Name = "НМЕК")]
@@ -76,8 +78,10 @@ namespace MongoMvc.Model
         [Display(Name = "Семестровий контроль")]
         public ControlType ControlType { get; set; } = ControlType.Exam;
         public DateTime UpdatedOn { get; set; } = DateTime.Now.Date;
-        public List<MongoFile> files { get; set; } = new List<MongoFile>();
-            
+
+        [Display(Name = "Робоча програма")]
+        public List<String> ProgramFiles { get; set; } = new List<String>();
+
         //for remove and sort in list
         public override bool Equals(object obj)
         {
