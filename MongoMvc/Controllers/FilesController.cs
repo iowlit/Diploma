@@ -36,6 +36,12 @@ namespace MongoMvc.Controllers
             return View(_StorageService.GetAllFiles("instructions"));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> CreateWorkSchedule()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateWorkSchedule(List<IFormFile> files)
         {
@@ -49,6 +55,12 @@ namespace MongoMvc.Controllers
             return RedirectToAction("WorkSchedules");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> CreateInstruction()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateInstruction(List<IFormFile> files)
         {
@@ -56,22 +68,38 @@ namespace MongoMvc.Controllers
             {
                 foreach (IFormFile file in files)
                 {
-                    await _StorageService.UploadAsync("instruction", file);
+                    await _StorageService.UploadAsync("instructions", file);
                 }
             }
             return RedirectToAction("Instructions");
         }
 
-        [HttpPost]
-        public IActionResult DeleteInstruction(IFormFile file)
+        [HttpGet]
+        public IActionResult DeleteInstruction(String fileName)
         {
+            var file = _StorageService.GetAllFiles("instructions").Where(f => f.Name == fileName).FirstOrDefault();
+            return View(file);
+        }
+
+        [HttpPost, ActionName("DeleteInstruction")]
+        public IActionResult ConfirmDeleteInstruction(String fileName)
+        {
+            _StorageService.DeleteFile(Path.Combine("instructions", fileName));
             return RedirectToAction("Instructions");
         }
 
-        [HttpPost]
-        public IActionResult DeleteWorkSchedule(IFormFile file)
+        [HttpGet]
+        public IActionResult DeleteWorkSchedule(String fileName)
         {
-            return RedirectToAction("Instructions");
+            var file = _StorageService.GetAllFiles("workschedule").Where(f => f.Name == fileName).FirstOrDefault();
+            return View(file);
+        }
+
+        [HttpPost, ActionName("DeleteWorkSchedule")]
+        public IActionResult ConfirmDeleteWorkSchedule(String fileName)
+        {
+            _StorageService.DeleteFile(Path.Combine("workschedule", fileName));
+            return RedirectToAction("WorkSchedules");
         }
     }
 }

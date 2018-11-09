@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Microsoft.Extensions.FileProviders.IFileInfo>
-
 @{
     ViewBag.Title = "Методичні вказівки";
 }
@@ -26,7 +25,7 @@
                     </a>
                 </td>
                 <td>
-                    @Html.ActionLink("Видалити", "Delete", "Files", new { files = item })
+                    @Html.ActionLink("Видалити", "DeleteInstruction", "Files", new { fileName = item.Name })
                 </td>
             </tr>
         }

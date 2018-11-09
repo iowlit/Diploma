@@ -29,7 +29,11 @@ namespace MongoMvc.Data
 
         public void DeleteFile(string path)
         {
-            
+            var fullPath = Path.Combine(_env.WebRootPath, "uploads", path).ToLower();
+            if (File.Exists(fullPath))
+            {
+                File.Delete(fullPath);               
+            }
         }
 
         public List<IFileInfo> GetAllFiles(string path)

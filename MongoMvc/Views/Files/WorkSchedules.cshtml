@@ -8,7 +8,7 @@
 @if (true)
 {
     <p>
-        <b>@Html.ActionLink("Створити", "CreatSchedule", "Files")</b>
+        <b>@Html.ActionLink("Створити", "CreateWorkSchedule", "Files")</b>
     </p>
 }
 
@@ -26,7 +26,7 @@
                     </a>
                 </td>
                 <td>
-                    @Html.ActionLink("Видалити", "Delete", "Files", new { files = item })
+                    @Html.ActionLink("Видалити", "DeleteWorkSchedule", "Files", new { fileName = item.Name })
                 </td>
             </tr>
         }

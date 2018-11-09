@@ -1,0 +1,27 @@
+﻿@model Microsoft.Extensions.FileProviders.IFileInfo
+@{
+    ViewBag.Title = "Видалити - Методичне забезпечення ПМ";
+}
+
+<h3>Видалити робочу програму?</h3>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Файл:
+        </dt>
+
+        <dd>
+            @Model.Name
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        <div class="form-actions no-color">
+            <input type="submit" value="Видалити" class="btn btn-danger" /> |
+            @Html.ActionLink("Назад", "WorkSchedules", "Files")
+        </div>
+    }
+</div>
+
