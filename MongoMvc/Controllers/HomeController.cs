@@ -53,22 +53,14 @@ namespace MongoMvc.Controllers
         public IActionResult Create()
         {
             ViewBag.Lectures = new MultiSelectList(_LecturerRepository.GetAll(), "Id", "Name");
+            ViewBag.Instructions = _StorageService.GetAllFiles("instructions").Select(w => w.Name).ToList();
+            ViewBag.WorkSchedules = _StorageService.GetAllFiles("workschedule").Select(w => w.Name).ToList();
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(Discipline disc, string[] Ids)
         {
-            //if (files.Count != 0)
-            //{
-            //    foreach (IFormFile file in files)
-            //    {
-            //        var id = GetUniqueFileName(file.FileName);
-            //        var mongoFile = new MongoFile(id, file.FileName);
-            //        disc.files.Add(mongoFile);
-            //        await _StorageService.UploadAsync("workschedule", file, id);     
-            //    }
-            //}
             disc.Lectors = _LecturerRepository.GetLectorsByArray(Ids);                                          
             await _DisciplineRepository.AddAsync(disc);
             ViewBag.Lectures = null;
@@ -87,14 +79,16 @@ namespace MongoMvc.Controllers
             {
                 return new NotFoundResult();
             }
-            ViewBag.Lectures = new MultiSelectList(_LecturerRepository.GetAll(), "Id", "Name");
+            ViewBag.Lectures = new MultiSelectList(_LecturerRepository.GetAll(), "Id", "Name", disc.Lectors.Select(l => l.Id).ToList());
+            ViewBag.Instructions = _StorageService.GetAllFiles("instructions").Select(w => w.Name).ToList();
+            ViewBag.WorkSchedules = _StorageService.GetAllFiles("workschedule").Select(w => w.Name).ToList();
             return View(disc);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Discipline disc, string[] Id)
+        public async Task<IActionResult> Edit(Discipline disc, string[] Ids)
         {
-            disc.Lectors = _LecturerRepository.GetLectorsByArray(Id);
+            disc.Lectors = _LecturerRepository.GetLectorsByArray(Ids);
             await _DisciplineRepository.UpdateAsync(disc.Id, disc);
             ViewBag.Lectures = null;
             return RedirectToAction("Read");

@@ -151,18 +151,5 @@ namespace MongoMvc.Data
             }
             return list;
         }
-                
-        //    public async Task<DeleteResult> RemoveAllNotes()
-        //    {
-        //        try
-        //        {
-        //            return await _context.Lecturers.DeleteManyAsync(new BsonDocument());
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            // log or manage the exception
-        //            throw ex;
-        //        }
-        //    }
     }
 }
