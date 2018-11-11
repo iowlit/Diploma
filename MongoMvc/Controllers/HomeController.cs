@@ -35,7 +35,7 @@ namespace MongoMvc.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Read(int? page)
+        public async Task<IActionResult> Read(int? page, string searchWord = null)
         {
             var dummyItems = await _DisciplineRepository.GetAllAsync();
             var pager = new Pager(dummyItems.Count(), page, 8);
@@ -45,9 +45,35 @@ namespace MongoMvc.Controllers
                 Disciplines = dummyItems.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize),
                 Pager = pager
             };
-
+            ViewData["Title"] = "Усі дисципліни";
             return View(viewModel);            
-        }        
+        }
+
+        [AllowAnonymous, HttpPost, ActionName("Read")]
+        public async Task<IActionResult> SearchDiscipline(string searchWord)
+        {
+            ViewData["Title"] = "Результат пошуку: " + searchWord;
+            ViewData["SearchWord"] = searchWord;
+            var emptyModel = new DisciplinePagination { Disciplines = new List<Discipline>(), Pager = new Pager(0, 0) };
+            if (String.IsNullOrEmpty(searchWord))
+            {
+                return View(emptyModel);
+            }
+            var dummyItems = await _DisciplineRepository.GetBySearchTextAsync(searchWord);
+
+            if (dummyItems == null)
+            {
+                return View(emptyModel);
+            }
+            var pager = new Pager(dummyItems.Count(), 1, dummyItems.Count());            
+            var viewModel = new DisciplinePagination
+            {
+                Disciplines = dummyItems,
+                Pager = pager
+            };
+            
+            return View(viewModel);
+        }
 
         [HttpGet]
         public IActionResult Create()

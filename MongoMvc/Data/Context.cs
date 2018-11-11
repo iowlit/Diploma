@@ -13,6 +13,7 @@ namespace MongoMvc.Data
             var client = new MongoClient(settings.Value.ConnectionString);
             if (client != null)
                 _database = client.GetDatabase(settings.Value.Database);
+            Disciplines.Indexes.CreateOne(Builders<Discipline>.IndexKeys.Text(x => x.Name));
         }
 
         public IMongoCollection<Discipline> Disciplines

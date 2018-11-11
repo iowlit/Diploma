@@ -8,5 +8,6 @@ namespace MongoMvc.Repository
     {
         void RemoveLecturerAsync(string id, Lecturer lc);
         Task<IEnumerable<Discipline>> GetByCourseAsync(int CourseId);
+        Task<IEnumerable<Discipline>> GetBySearchTextAsync(string text);
     }
 }

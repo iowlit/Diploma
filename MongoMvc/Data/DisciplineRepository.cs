@@ -197,17 +197,27 @@ namespace MongoMvc.Data
             }
         }
 
-        //public async Task<DeleteResult> RemoveAllNotes()
-        //{
-        //    try
-        //    {
-        //        return await _context.Disciplines.DeleteManyAsync(new BsonDocument());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // log or manage the exception
-        //        throw ex;
-        //    }
-        //}
+        public async Task<IEnumerable<Discipline>> GetBySearchTextAsync(string text)
+        {
+            List<Discipline> dcs;
+            var filter = Builders<Discipline>.Filter.Where( d => d.Name.ToLower().Contains(text) );
+            try
+            {
+                dcs = await _context.Disciplines.Find(filter).ToListAsync();
+                if (dcs.Count != 0)
+                {
+                    return dcs;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                throw ex;
+            }
+        }
     }
 }

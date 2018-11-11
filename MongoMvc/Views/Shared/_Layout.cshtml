@@ -58,23 +58,29 @@
                                 <li><a asp-area="" asp-controller="Files" asp-action="WorkSchedules"> Розклад </a></li>
                             </ul>
                         </li>
-                        
                     }
-                                        
                 </ul>
-               
-                     @Html.AntiForgeryToken()
-                        <ul class="nav navbar-nav navbar-right">
-                            @if(User.Identity.IsAuthenticated){
-                                <li>@Html.ActionLink("Вийти", "LogOut", "Account")</li>
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink("Увійти", "Login", "Account")</li>
-                            }
-                        </ul>                    
+
+                @Html.AntiForgeryToken()
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Вийти", "LogOut", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Увійти", "Login", "Account")</li>
+                    }
+                </ul>
                 
-                
+                <form class="navbar-form nav navbar-nav navbar-right input-group" asp-controller="Home" asp-action="Read">
+                    <div class="form-group">
+                        <input type="text" class="form-control input-group" placeholder="Шукати дисципліну" name="searchWord" value="@ViewData["SearchWord"]">
+                    </div>
+                    <span class="input-group-btn form-group">                        
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </form>
             </div>
         </div>
     </div>
@@ -101,7 +107,7 @@
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>   
+    </environment>
     @RenderSection("scripts", required: false)
 </body>
 </html>
