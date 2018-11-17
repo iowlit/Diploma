@@ -134,8 +134,9 @@ namespace MongoMvc.Data
                             .Set(s => s.YearPart, item.YearPart)
                             .Set(s => s.Books, item.Books)
                             .Set(s => s.InstructionFiles, item.InstructionFiles)
+                            .Set(s => s.ProgramFiles, item.ProgramFiles)
                             .Set(s => s.HMEK, item.HMEK)
-                            .Set(s => s.VNS, item.VNS)                            
+                            .Set(s => s.VNS, item.VNS)                       
                             .CurrentDate(s => s.UpdatedOn);
 
             try
