@@ -87,7 +87,10 @@
                 return "Обов'язковий";
                 break;
             case MongoMvc.Model.ModuleType.NotRequired:
-                return "Вибірковий";
+                return "Для вибору";
+                break;
+            case MongoMvc.Model.ModuleType.StudentChoice:
+                return "За вибором студента";
                 break;
             default: return "Невідомо";
         }

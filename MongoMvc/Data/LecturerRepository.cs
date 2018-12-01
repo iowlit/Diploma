@@ -126,7 +126,8 @@ namespace MongoMvc.Data
         {
             var filter = Builders<Lecturer>.Filter.Eq(s => s.Id, id);
             var update = Builders<Lecturer>.Update
-                            .Set(s => s.Name, item.Name);
+                            .Set(s => s.Name, item.Name)
+                            .Set(s => s.Descr, item.Descr);
 
             try
             {

@@ -87,74 +87,77 @@
 
 @*helper not supported by ASP.NET Core*@
 @functions {
-        public string GetControlType(MongoMvc.Model.ControlType ct)
+    public string GetControlType(MongoMvc.Model.ControlType ct)
+    {
+        switch (ct)
         {
-            switch (ct)
-            {
-                case MongoMvc.Model.ControlType.Exam:
-                    return "Екзамен";
-                    break;
-                case MongoMvc.Model.ControlType.Zalik:
-                    return "Залік";
-                    break;
-                default: return "Невідомо";
-            }
+            case MongoMvc.Model.ControlType.Exam:
+                return "Екзамен";
+                break;
+            case MongoMvc.Model.ControlType.Zalik:
+                return "Залік";
+                break;
+            default: return "Невідомо";
         }
-        public string GetModuleType(MongoMvc.Model.ModuleType mt)
+    }
+    public string GetModuleType(MongoMvc.Model.ModuleType mt)
+    {
+        switch (mt)
         {
-            switch (mt)
-            {
-                case MongoMvc.Model.ModuleType.Required:
-                    return "Обов'язковий";
-                    break;
-                case MongoMvc.Model.ModuleType.NotRequired:
-                    return "Вибірковий";
-                    break;
-                default: return "Невідомо";
-            }
+            case MongoMvc.Model.ModuleType.Required:
+                return "Обов'язковий";
+                break;
+            case MongoMvc.Model.ModuleType.NotRequired:
+                return "Для вибору";
+                break;
+            case MongoMvc.Model.ModuleType.StudentChoice:
+                return "За вибором студента";
+                break;
+            default: return "Невідомо";
         }
-        public string GetYearPart(MongoMvc.Model.YearPart yp)
+    }
+    public string GetYearPart(MongoMvc.Model.YearPart yp)
+    {
+        switch (yp)
         {
-            switch (yp)
-            {
-                case MongoMvc.Model.YearPart.Autumn:
-                    return "Осінній";
-                    break;
-                case MongoMvc.Model.YearPart.Spring:
-                    return "Весняний";
-                    break;
-                default: return "Невідомо";
-            }
+            case MongoMvc.Model.YearPart.Autumn:
+                return "Осінній";
+                break;
+            case MongoMvc.Model.YearPart.Spring:
+                return "Весняний";
+                break;
+            default: return "Невідомо";
         }
-        public string GetCourse(int course)
+    }
+    public string GetCourse(int course)
+    {
+        switch (course)
         {
-            switch (course)
-            {
-                case 1:
-                    return "1 Курс";
+            case 1:
+                return "1 Курс";
 
-                case 2:
-                    return "2 Курс";
+            case 2:
+                return "2 Курс";
 
-                case 3:
-                    return "3 Курс";
+            case 3:
+                return "3 Курс";
 
-                case 4:
-                    return "4 Курс";
+            case 4:
+                return "4 Курс";
 
-                case 5:
-                    return "Математичне і комп'ютерне моделювання";
+            case 5:
+                return "Математичне і комп'ютерне моделювання";
 
-                case 6:
-                    return "Математичне моделювання мікро- і нано систем";
+            case 6:
+                return "Математичне моделювання мікро- і нано систем";
 
-                case 7:
-                    return "Обчислювальна механіка";
+            case 7:
+                return "Обчислювальна механіка";
 
-                case 8:
-                    return "Комп'ютерні науки та інформаційні технології";
+            case 8:
+                return "Комп'ютерні науки та інформаційні технології";
 
-                default: return "Невідомо";
-            }
+            default: return "Невідомо";
         }
+    }
 }

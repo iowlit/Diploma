@@ -19,8 +19,10 @@ namespace MongoMvc.Model
     {
         [Display(Name = "Обов'язковий")]
         Required = 0,
-        [Display(Name = "Вибірковий")]
-        NotRequired = 1
+        [Display(Name = "Для вибору")]
+        NotRequired = 1,
+        [Display(Name = "За вибором студента")]
+        StudentChoice = 2
     }
 
     public enum ControlType
